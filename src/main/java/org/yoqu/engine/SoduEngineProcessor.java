@@ -1,6 +1,8 @@
 package org.yoqu.engine;
 
 import org.apache.http.client.utils.DateUtils;
+import org.springframework.util.StringUtils;
+import org.yoqu.story.entity.Chapter;
 import org.yoqu.story.entity.Story;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -27,10 +29,35 @@ public class SoduEngineProcessor implements PageProcessor {
                 searchRule(page);
             } else if (type.equals("repository")) {
                 bookRepositoryRule(page,request);
+            }else if(type.equals("chapters")){
+                chapterRule(page,request);
             }
         } else {
             page.putField("result", false);
         }
+    }
+
+    private void chapterRule(Page page,Request request){
+        List<Selectable> trLists = page.getHtml().xpath("/html/body/table[4]/tbody/tr/td[1]/table/tbody/tr").nodes();
+        List<Chapter> chapters = new ArrayList<>();
+        //循环每个tr
+        for (Selectable tr : trLists){
+            List<Selectable> tdList = tr.xpath("//td").nodes();
+            //循环每个章节
+            for (Selectable item : tdList){
+                Chapter chapter = new Chapter();
+                String url = item.links().toString();
+                String name = item.xpath("//a/text()").toString();
+                //如果没有取到名字直接诶跳过即可
+                if (StringUtils.isEmpty(name)){
+                    continue;
+                }
+                chapter.setName(name);
+                chapter.setReadUrl(url);
+                chapters.add(chapter);
+            }
+        }
+        page.putField("chapters",chapters);
     }
 
     /**

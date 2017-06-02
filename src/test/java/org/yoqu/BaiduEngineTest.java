@@ -39,4 +39,14 @@ public class BaiduEngineTest {
         request.putExtra("bookName","斗罗大陆");
         Spider.create(new SoduEngineProcessor()).addPipeline(new ConsolePipeline()).addRequest(request).thread(5).run();
     }
+    /**
+     * 测试小说源
+     */
+    @Test
+    public void testChapter(){
+        Request request = new Request();
+        request.putExtra("type","chapters");
+        request.setUrl("http://www.sodu.cc/newmulu_6037_35.html");
+        Spider.create(new SoduEngineProcessor()).addPipeline(new ConsolePipeline()).addRequest(request).thread(5).run();
+    }
 }
