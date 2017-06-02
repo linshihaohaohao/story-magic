@@ -1,4 +1,4 @@
-package org.yoqu.story.entity;
+package org.yoqu.common.entity;
 
 import java.util.Date;
 import java.util.List;

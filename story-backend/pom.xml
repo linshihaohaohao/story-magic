@@ -6,10 +6,7 @@
 	<groupId>org.yoqu</groupId>
 	<artifactId>story-magic</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-    <modules>
-        <module>story-api</module>
-		<module>story-api</module>
-	</modules>
+
     <packaging>pom</packaging>
 
 	<name>story-magic</name>
@@ -30,6 +27,13 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.yoqu</groupId>
+			<artifactId>story-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>

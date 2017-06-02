@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.yoqu.common.enums.DragRuleTypeEnum;
 import org.yoqu.engine.SoduEngineProcessor;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
@@ -39,14 +40,29 @@ public class BaiduEngineTest {
         request.putExtra("bookName","斗罗大陆");
         Spider.create(new SoduEngineProcessor()).addPipeline(new ConsolePipeline()).addRequest(request).thread(5).run();
     }
+
+
     /**
-     * 测试小说源
+     * 测试小说章节
      */
     @Test
     public void testChapter(){
         Request request = new Request();
         request.putExtra("type","chapters");
         request.setUrl("http://www.sodu.cc/newmulu_6037_35.html");
+        Spider.create(new SoduEngineProcessor()).addPipeline(new ConsolePipeline()).addRequest(request).thread(5).run();
+    }
+
+    /**
+     * 测试小说章节
+     */
+    @Test
+    public void testContent(){
+        Request request = new Request();
+        request.putExtra("type","content");
+        request.putExtra("contentRule","//div[@id='content']");
+        request.putExtra("ruleType", DragRuleTypeEnum.XPATH.getValue());
+        request.setUrl("http://www.muyuge.com/0_288/24058890.html");
         Spider.create(new SoduEngineProcessor()).addPipeline(new ConsolePipeline()).addRequest(request).thread(5).run();
     }
 }
