@@ -37,6 +37,11 @@ public class SoduEngineProcessor implements PageProcessor {
         }
     }
 
+    /**
+     * 章节规则
+     * @param page
+     * @param request
+     */
     private void chapterRule(Page page,Request request){
         List<Selectable> trLists = page.getHtml().xpath("/html/body/table[4]/tbody/tr/td[1]/table/tbody/tr").nodes();
         List<Chapter> chapters = new ArrayList<>();

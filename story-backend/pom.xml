@@ -6,7 +6,11 @@
 	<groupId>org.yoqu</groupId>
 	<artifactId>story-magic</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <modules>
+        <module>story-api</module>
+		<module>story-api</module>
+	</modules>
+    <packaging>pom</packaging>
 
 	<name>story-magic</name>
 	<description>Demo project for Spring Boot</description>
