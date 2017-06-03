@@ -1,6 +1,7 @@
 package org.yoqu.engine;
 
 import org.apache.http.client.utils.DateUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.yoqu.common.entity.Chapter;
 import org.yoqu.common.entity.Story;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * Created by yoqu on 17-5-31.
  */
+@Component
 public class SoduEngineProcessor implements PageProcessor {
 
 
