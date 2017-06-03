@@ -1,6 +1,7 @@
 package org.yoqu.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 import org.yoqu.backend.config.SpiderProperties;
 import org.yoqu.engine.SoduEngineProcessor;
@@ -17,6 +18,7 @@ import javax.annotation.PostConstruct;
  * @email wcjiang2@iflytek.com
  */
 @Service
+@EnableConfigurationProperties(SpiderProperties.class)
 public class SpiderService {
 
     private Spider spider;

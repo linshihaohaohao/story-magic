@@ -1,10 +1,11 @@
 package org.yoqu.commons.utils.file;
 
 
-import org.hsweb.commons.StringUtils;
-import org.hsweb.commons.file.callback.ReadCallBack;
-import org.hsweb.commons.file.callback.ReadStringCallBack;
-import org.hsweb.commons.file.callback.ScanCallBack;
+
+import org.yoqu.commons.utils.StringUtils;
+import org.yoqu.commons.utils.file.callback.ReadCallBack;
+import org.yoqu.commons.utils.file.callback.ReadStringCallBack;
+import org.yoqu.commons.utils.file.callback.ScanCallBack;
 
 import java.io.*;
 

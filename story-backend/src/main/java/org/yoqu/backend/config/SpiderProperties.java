@@ -1,7 +1,6 @@
 package org.yoqu.backend.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * @author yoqu
@@ -9,32 +8,32 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @time 下午11:18
  * @email wcjiang2@iflytek.com
  */
-@ConfigurationProperties(prefix = "spider")
+@ConfigurationProperties(prefix = "spider.config")
 public class SpiderProperties {
 
     /**
      * 线程
      */
-    private int thread;
+    private Integer thread;
 
     /**
      * 重试次数
      */
-    private int retryTime;
+    private Integer retryTime;
 
-    public int getThread() {
+    public Integer getThread() {
         return thread;
     }
 
-    public void setThread(int thread) {
+    public void setThread(Integer thread) {
         this.thread = thread;
     }
 
-    public int getRetryTime() {
+    public Integer getRetryTime() {
         return retryTime;
     }
 
-    public void setRetryTime(int retryTime) {
+    public void setRetryTime(Integer retryTime) {
         this.retryTime = retryTime;
     }
 }
