@@ -11,6 +11,7 @@
 
     <modules>
         <module>story-worker</module>
+        <module>story-admin</module>
         <module>story-api</module>
         <module>eureka-server</module>
         <module>common-utils</module>
