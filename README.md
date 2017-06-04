@@ -27,9 +27,10 @@
 * redis
 
 ## 目录结构
-
+```
 ├── common-utils    公共工具类
 ├── eureka-server   服务注册发现中心，用于做多个worker集线管理
 ├── story-admin    后台管理界面，管理抓取规则等功能
 ├── story-api    公共api
 └── story-worker  小说抓取器，有关爬虫相关的操作均由worker去操作
+```
