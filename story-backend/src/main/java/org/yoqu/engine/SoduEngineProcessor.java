@@ -62,7 +62,6 @@ public class SoduEngineProcessor implements PageProcessor {
         } else {
             content = page.getHtml().xpath(contentRule).toString();
         }
-
         //最后处理一下获取到的内容的html标签。
         content = ContentStringUtils.filterDivTag(content);
         page.putField("content", content);
@@ -110,10 +109,12 @@ public class SoduEngineProcessor implements PageProcessor {
             String chapterName = s.xpath("//div/div[1]/a/text()").toString();
             String bookUrl = s.xpath("//div/div[1]").links().toString();
             String resourceSite = s.xpath("div/div[2]/a/text()").toString();
+            String resourceSiteUrl = s.xpath("div/div[2]/a").links().toString();
             String lastDate = s.xpath("//div/div[3]/text()").toString();
             Story story = new Story();
             story.setBookUrl(bookUrl);
             story.setResourceSite(resourceSite);
+            story.setResourceSiteUrl(resourceSiteUrl);
             story.setNewChapter(chapterName);
             story.setName(request.getExtra("bookName").toString());
             story.setLastUpdateDate(DateUtils.parseDate(lastDate));

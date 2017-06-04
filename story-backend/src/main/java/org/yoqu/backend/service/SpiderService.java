@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 import org.yoqu.backend.config.SpiderProperties;
+import org.yoqu.backend.pipeline.StoryPipeline;
 import org.yoqu.engine.SoduEngineProcessor;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
@@ -29,17 +30,21 @@ public class SpiderService {
     @Autowired
     SoduEngineProcessor soduEngineProcessor;
 
+    @Autowired
+    StoryPipeline storyPipeline;
+
     @PostConstruct
     public void init(){
         spider = new Spider(soduEngineProcessor);
         spider.thread(spiderProperties.getThread());
-        spider.addPipeline(new ConsolePipeline());
+        spider.addPipeline(storyPipeline);
     }
 
 
     public void execute(Request request){
         spider.addRequest(request);
         spider.run();
+
     }
 
 }

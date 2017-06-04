@@ -25,23 +25,35 @@ public class Story {
      * 网站源
      */
     private String resourceSite;
-
+    /**
+     * 网站源url
+     */
+    private String resourceSiteUrl;
     /**
      * 最后一次的更新时间
      */
     private Date lastUpdateDate;
-
     /**
      * 最新章节
      */
     private String newChapter;
-
     /**
      * 图书的url
      */
     private String bookUrl;
 
+    /**
+     * 章节
+     */
     private List<Chapter> chapters;
+
+    public String getResourceSiteUrl() {
+        return resourceSiteUrl;
+    }
+
+    public void setResourceSiteUrl(String resourceSiteUrl) {
+        this.resourceSiteUrl = resourceSiteUrl;
+    }
 
     public List<Chapter> getChapters() {
         return chapters;

@@ -12,6 +12,7 @@
     <modules>
         <module>story-backend</module>
         <module>story-api</module>
+        <module>eureka-server</module>
         <module>common-utils</module>
     </modules>
 
@@ -20,6 +21,7 @@
         <story.framework.version>0.0.1</story.framework.version>
         <java.version>1.8</java.version>
         <spring.boot.version>1.5.3.RELEASE</spring.boot.version>
+        <spring.cloud.version>1.3.1.RELEASE</spring.cloud.version>
         <webmagic-version>0.7.0</webmagic-version>
     </properties>
     <build>
