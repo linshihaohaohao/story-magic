@@ -5,10 +5,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Service;
 import org.yoqu.backend.config.SpiderProperties;
 import org.yoqu.backend.pipeline.StoryPipeline;
-import org.yoqu.engine.SoduEngineProcessor;
+import org.yoqu.backend.engine.SoduEngineProcessor;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.pipeline.ConsolePipeline;
 
 import javax.annotation.PostConstruct;
 

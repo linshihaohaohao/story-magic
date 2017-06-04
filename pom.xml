@@ -10,7 +10,7 @@
     <url>http://maven.apache.org</url>
 
     <modules>
-        <module>story-backend</module>
+        <module>story-worker</module>
         <module>story-api</module>
         <module>eureka-server</module>
         <module>common-utils</module>
