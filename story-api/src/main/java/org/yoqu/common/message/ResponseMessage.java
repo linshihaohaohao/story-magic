@@ -58,6 +58,10 @@ public class ResponseMessage implements Serializable {
         return map;
     }
 
+    public ResponseMessage(){
+
+    }
+
     protected ResponseMessage(String message) {
         this.code = 500;
         this.message = message;

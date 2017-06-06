@@ -22,7 +22,7 @@ import javax.annotation.PostConstruct;
 public class SpiderService {
 
     private Spider spider;
-
+    private boolean isRunning=false;
     @Autowired
     SpiderProperties spiderProperties;
 
@@ -42,7 +42,11 @@ public class SpiderService {
 
     public void execute(Request request){
         spider.addRequest(request);
-        spider.run();
+        if(!isRunning){
+            isRunning=true;
+            spider.run();
+            isRunning=false;
+        }
 
     }
 
