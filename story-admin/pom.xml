@@ -24,28 +24,53 @@
 	</properties>
 
 	<dependencies>
+
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starter-web</artifactId>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-starmappers.testtest</artifactId>-->
+			<!--<scmappers.testtest</scope>-->
+		<!--</dependency>-->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>org.fusesource</groupId>
+			<artifactId>sigar</artifactId>
+			<version>1.6.4</version>
+			<exclusions>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
+		<!--
+        ui模块，目前仅提供了一个ui实现
+        https://github.com/hs-web/hsweb-platform/tree/master/hsweb-platform-ui-miniui
+        -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<groupId>org.hsweb</groupId>
+			<artifactId>hsweb-platform-ui-miniui</artifactId>
+			<version>2.2-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hsweb</groupId>
+					<artifactId>hsweb-web-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+
+
+
+		<dependency>
+			<groupId>org.yoqu</groupId>
+			<artifactId>story-dao</artifactId>
+			<version>${story.framework.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -58,17 +83,47 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.hsweb</groupId>
+				<artifactId>hsweb-framework</artifactId>
+				<version>${hsweb.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<!--spring-boot插件,有了它才能执行 mvn spring-boot:run命令，以及mvn package 打可运行jar包-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot.version}</version>
+				<configuration>
+					<mainClass>org.yoqu.story.admin.StoryAdminApplication</mainClass>
+					<layout>ZIP</layout>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
