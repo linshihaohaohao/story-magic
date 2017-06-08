@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>story-dao</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>story-dao</name>
+	<description>Demo project for Spring Boot</description>
+	<parent>
+		<groupId>org.yoqu</groupId>
+		<artifactId>story-magic</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<!--
+              1、动态数据源支持,如果不引入此依赖,动态数据源将无法使用。
+              2、配置application.yml -> hsweb.dynamic-datasource失效。
+              3、请自行配置数据源application.yml -> spring.datasource。
+              -->
+		<dependency>
+			<groupId>org.hsweb</groupId>
+			<artifactId>hsweb-web-datasource</artifactId>
+		</dependency>
+
+		<!--
+        hsweb 核心依赖
+        https://github.com/hs-web/hsweb-framework
+        -->
+		<dependency>
+			<groupId>org.hsweb</groupId>
+			<artifactId>hsweb-web-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hsweb</groupId>
+			<artifactId>hsweb-web-core</artifactId>
+			<version>${hsweb.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.26</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<!--统一依赖，有没有发现上面不需要写版本号了-->
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.hsweb</groupId>
+				<artifactId>hsweb-framework</artifactId>
+				<version>${hsweb.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>
