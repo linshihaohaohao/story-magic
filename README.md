@@ -32,5 +32,7 @@
 ├── eureka-server   服务注册发现中心，用于做多个worker集线管理
 ├── story-admin    后台管理界面，管理抓取规则等功能
 ├── story-api    公共api
+├── story-dao    数据访问层
+└── story-frontend  前端访问层，主要用于小说内容访问层
 └── story-worker  小说抓取器，有关爬虫相关的操作均由worker去操作
 ```
