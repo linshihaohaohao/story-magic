@@ -18,18 +18,28 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.yoqu.story.admin.dao.TestDao">
-    <resultMap id="TestResultMap" type="org.yoqu.story.admin.entity.TestPo">
-        <id property="id" column="u_id" javaType="string" jdbcType="VARCHAR"/>
+<mapper namespace="org.yoqu.story.dao.mappers">
+    <resultMap id="StoryRuleResultMap" type="org.yoqu.common.entity.rule.StoryRulePo">
+        <id property="id" column="id" javaType="Long" jdbcType="Long"/>
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
-        <result property="age" column="age" javaType="int" jdbcType="INTEGER"/>
+        <result property="bookName" column="book_name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="authorName" column="author_name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="type" column="type" javaType="String" jdbcType="VARCHAR"/>
+        <result property="listRule" column="list_rule" javaType="String" jdbcType="VARCHAR"/>
+        <result property="chapterName" column="chapter_name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="url" column="url" javaType="String" jdbcType="VARCHAR"/>
+        <!--<result property="age" column="age" javaType="int" jdbcType="INTEGER"/>-->
+        <result property="createBy" column="create_by" javaType="String" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" javaType="String" jdbcType="VARCHAR"/>
         <result property="createDate" column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="updateDate" column="update_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="delete_flag" javaType="Boolean" jdbcType="Boolean"/>
     </resultMap>
 
     <!--用于动态生成sql所需的配置-->
     <sql id="config">
-        <bind name="resultMapId" value="'TestResultMap'"/>
-        <bind name="tableName" value="'s_test'"/>
+        <bind name="resultMapId" value="'StoryRuleResultMap'"/>
+        <bind name="tableName" value="'Story_rule'"/>
     </sql>
     <insert id="insert" parameterType="org.hsweb.web.bean.common.InsertParam">
         <include refid="config"/>
@@ -46,8 +56,8 @@
         <include refid="BasicMapper.buildUpdateSql"/>
     </update>
 
-    <select id="selectByPk" parameterType="string" resultMap="TestResultMap">
-        select * from s_test where u_id=#{id}
+    <select id="selectByPk" parameterType="string" resultMap="StoryRuleResultMap">
+        select * from Story_rule where id=#{id}
     </select>
 
     <select id="select" parameterType="org.hsweb.web.bean.common.QueryParam" resultMap="TestResultMap">
