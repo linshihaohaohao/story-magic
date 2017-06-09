@@ -7,5 +7,5 @@ import org.hsweb.web.service.GenericService;
  *
  * @Email zack.zhong@qq.com
  */
-public interface BaseService<T> extends GenericService<T,Long> {
+public interface BaseService<T> extends GenericService<T,String> {
 }

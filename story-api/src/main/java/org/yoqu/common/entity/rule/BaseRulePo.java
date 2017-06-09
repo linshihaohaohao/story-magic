@@ -9,7 +9,7 @@ import java.util.Date;
  *
  * @Email zack.zhong@qq.com
  */
-public class BaseRulePo extends GenericPo<Long> {
+public class BaseRulePo extends GenericPo<String> {
 
 	private String createBy;
 

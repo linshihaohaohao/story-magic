@@ -13,7 +13,7 @@ import org.yoqu.story.dao.service.BaseService;
  * @Email zack.zhong@qq.com
  */
 
-public class BaseServiceImpl<T extends GenericPo<Long>> extends AbstractServiceImpl<T, Long> implements BaseService<T> {
+public class BaseServiceImpl<T extends GenericPo<String>> extends AbstractServiceImpl<T, String> implements BaseService<T> {
 
 	@Autowired
 	private BaseMapper<T> baseMapper;

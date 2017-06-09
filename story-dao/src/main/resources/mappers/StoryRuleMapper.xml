@@ -20,7 +20,7 @@
         "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.yoqu.story.dao.mappers">
     <resultMap id="StoryRuleResultMap" type="org.yoqu.common.entity.rule.StoryRulePo">
-        <id property="id" column="id" javaType="Long" jdbcType="Long"/>
+        <id property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
         <result property="bookName" column="book_name" javaType="String" jdbcType="VARCHAR"/>
         <result property="authorName" column="author_name" javaType="String" jdbcType="VARCHAR"/>
@@ -33,13 +33,13 @@
         <result property="updateBy" column="update_by" javaType="String" jdbcType="VARCHAR"/>
         <result property="createDate" column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
         <result property="updateDate" column="update_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
-        <result property="deleteFlag" column="delete_flag" javaType="Boolean" jdbcType="Boolean"/>
+        <result property="deleteFlag" column="delete_flag" javaType="Boolean" jdbcType="BOOLEAN"/>
     </resultMap>
 
     <!--用于动态生成sql所需的配置-->
     <sql id="config">
         <bind name="resultMapId" value="'StoryRuleResultMap'"/>
-        <bind name="tableName" value="'Story_rule'"/>
+        <bind name="tableName" value="'story_story_rule'"/>
     </sql>
     <insert id="insert" parameterType="org.hsweb.web.bean.common.InsertParam">
         <include refid="config"/>
@@ -60,7 +60,7 @@
         select * from Story_rule where id=#{id}
     </select>
 
-    <select id="select" parameterType="org.hsweb.web.bean.common.QueryParam" resultMap="TestResultMap">
+    <select id="select" parameterType="org.hsweb.web.bean.common.QueryParam" resultMap="StoryRuleResultMap">
         <include refid="config"/>
         <include refid="BasicMapper.buildSelectSql"/>
     </select>
