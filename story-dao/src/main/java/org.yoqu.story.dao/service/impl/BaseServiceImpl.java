@@ -1,8 +1,8 @@
-package org.yoqu.story.dao.service.serviceImpl;
+package org.yoqu.story.dao.service.impl;
 
-import org.hsweb.web.bean.po.GenericPo;
 import org.hsweb.web.service.impl.AbstractServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.yoqu.common.entity.rule.BaseRulePo;
 import org.yoqu.story.dao.mappers.BaseMapper;
 import org.yoqu.story.dao.service.BaseService;
@@ -12,8 +12,8 @@ import org.yoqu.story.dao.service.BaseService;
  *
  * @Email zack.zhong@qq.com
  */
-
-public class BaseServiceImpl<T extends GenericPo<String>> extends AbstractServiceImpl<T, String> implements BaseService<T> {
+@Service
+public class BaseServiceImpl<T extends BaseRulePo> extends AbstractServiceImpl<T, String> implements BaseService<T> {
 
 	@Autowired
 	private BaseMapper<T> baseMapper;
@@ -21,6 +21,20 @@ public class BaseServiceImpl<T extends GenericPo<String>> extends AbstractServic
 	@Override
 	protected BaseMapper<T> getMapper(){
 		return baseMapper;
+	}
+
+	@Override
+	public int saveOrUpdate(T t){
+		T  old = selectByPk(t.getId());
+		if (null != old){
+			return createUpdate(t)
+					.fromBean()
+					.where(BaseRulePo.Property.id)
+					.exec();
+		}else {
+			insert(t);
+		}
+		return 1;
 	}
 
 }

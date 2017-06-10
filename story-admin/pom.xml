@@ -28,13 +28,13 @@
 		<dependency>
 			<groupId>org.yoqu</groupId>
 			<artifactId>story-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${story.framework.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.yoqu</groupId>
 			<artifactId>story-dao</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${story.framework.version}</version>
 		</dependency>
 
 		<!--<dependency>-->
@@ -75,13 +75,6 @@
 			</exclusions>
 		</dependency>
 
-
-
-		<dependency>
-			<groupId>org.yoqu</groupId>
-			<artifactId>story-dao</artifactId>
-			<version>${story.framework.version}</version>
-		</dependency>
 
 	</dependencies>
 

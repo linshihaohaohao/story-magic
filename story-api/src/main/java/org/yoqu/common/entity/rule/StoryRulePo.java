@@ -69,6 +69,7 @@ public class StoryRulePo extends BaseRulePo {
 	}
 
 	public interface Property extends GenericPo.Property{
+
 		String bookName = "bookName";
 
 		String authorName = "authorName";
