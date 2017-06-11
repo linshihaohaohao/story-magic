@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Configuration
 @EnableAutoConfiguration(exclude = CMDWebSocketAutoConfiguration.class)
 @ComponentScan(basePackages = {"org.yoqu.story"})
-@MapperScan(value = "org.yoqu.story.dao.mappers",annotationClass = Mapper.class)
 @Controller
 public class StoryAdminApplication {
 
@@ -27,12 +26,7 @@ public class StoryAdminApplication {
 		SpringApplication.run(StoryAdminApplication.class, args);
 	}
 
-	//指定使用hsweb的properties，
-	@Bean
-	@Primary
-	public MybatisProperties mybatisProperties() {
-		return new MybatisProperties();
-	}
+
 
 	@RequestMapping(value = {"/", "/index.html"})
 	@Authorize

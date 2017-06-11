@@ -26,7 +26,7 @@
 
 		<dependency>
 			<groupId>org.yoqu</groupId>
-			<artifactId>story-api</artifactId>
+			<artifactId>story-dao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

@@ -1,0 +1,23 @@
+#LOGGING
+logging:
+    config: classpath:config/logback.xml
+    level: debug
+hsweb:
+    dynamic-datasource: #动态数据源配置
+          url: jdbc:mysql://localhost:3306/hsweb??useUnicode=true&characterEncoding=utf-8
+          username: root
+          password:
+          icatch:
+            max-actives: 100
+            output-dir: ./data/atomikos
+            log_base_dir: ./data/atomikos
+            default-jta-timeout: 300000
+          type: mysql
+    access-logger: on #开启访问日志
+
+spring:
+    datasource:
+      url: jdbc:mysql://localhost:3306/hsweb??useUnicode=true&characterEncoding=utf-8
+      username: root
+      password:
+      type: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
