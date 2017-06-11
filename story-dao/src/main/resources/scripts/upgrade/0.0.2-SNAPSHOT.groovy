@@ -20,6 +20,7 @@ import java.sql.JDBCType
     .addColumn().name("create_by").alias("create_by").comment("创建者").jdbcType(JDBCType.VARCHAR).length(128).commit()
     .addColumn().name("create_date").alias("create_date").comment("创建时间").jdbcType(JDBCType.TIMESTAMP).length(128).commit()
     .addColumn().name("update_by").alias("update_by").comment("编辑者").jdbcType(JDBCType.VARCHAR).length(128).commit()
+    .addColumn().name("chapter_name").alias("chapter_name").comment("章节名称").jdbcType(JDBCType.VARCHAR).length(255).commit()
     .addColumn().name("update_date").alias("update_date").comment("编辑时间").jdbcType(JDBCType.TIMESTAMP).length(128).commit()
     .addColumn().name("delete_flag").alias("delete_flag").comment("删除标签").jdbcType(JDBCType.BOOLEAN).length(2).commit()
     .commit();
