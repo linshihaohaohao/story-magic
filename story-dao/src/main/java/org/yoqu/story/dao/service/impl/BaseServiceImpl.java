@@ -12,15 +12,15 @@ import org.yoqu.story.dao.service.BaseService;
  *
  * @Email zack.zhong@qq.com
  */
-@Service
-public class BaseServiceImpl<T extends BaseRulePo> extends AbstractServiceImpl<T, String> implements BaseService<T> {
+//@Service
+public class BaseServiceImpl<T extends BaseRulePo,M extends BaseMapper> extends AbstractServiceImpl<T, String> implements BaseService<T,M> {
 
 	@Autowired
-	private BaseMapper<T> baseMapper;
+	private M m;
 
 	@Override
 	protected BaseMapper<T> getMapper(){
-		return baseMapper;
+		return m;
 	}
 
 	@Override

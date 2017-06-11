@@ -8,5 +8,6 @@ import org.yoqu.common.entity.rule.StoryRulePo;
  *
  * @Email zack.zhong@qq.com
  */
+
 public interface BaseMapper<T> extends GenericMapper<T,String> {
 }

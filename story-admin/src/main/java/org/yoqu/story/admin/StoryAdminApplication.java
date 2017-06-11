@@ -1,7 +1,9 @@
 package org.yoqu.story.admin;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.hsweb.web.core.authorize.annotation.Authorize;
 import org.hsweb.web.mybatis.MybatisProperties;
+import org.hsweb.web.socket.CMDWebSocketAutoConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -15,11 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 //@SpringBootApplication
 @Configuration
-@EnableAutoConfiguration//(exclude = MybatisAutoConfiguration.class)
+@EnableAutoConfiguration(exclude = CMDWebSocketAutoConfiguration.class)
 @ComponentScan(basePackages = {"org.yoqu.story"})
-@MapperScan("org.yoqu.story.admin.dao")
+@MapperScan(value = "org.yoqu.story.dao.mappers",annotationClass = Mapper.class)
 @Controller
-
 public class StoryAdminApplication {
 
 	public static void main(String[] args) {

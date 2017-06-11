@@ -1,5 +1,6 @@
 package org.yoqu.story.admin.controller;
 
+import org.hsweb.web.bean.po.GenericPo;
 import org.hsweb.web.controller.GenericController;
 import org.hsweb.web.core.authorize.annotation.Authorize;
 import org.hsweb.web.core.logger.annotation.AccessLogger;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.yoqu.common.entity.rule.StoryRulePo;
 import org.yoqu.story.dao.service.StoryRuleService;
+
+import java.util.UUID;
 
 /**
  * Created by Admin on 2017/6/10.
@@ -33,6 +36,8 @@ public class StoryController extends GenericController<StoryRulePo, String> {
     public ResponseMessage getProfile() {
         StoryRulePo storyRulePo = new StoryRulePo();
         storyRulePo.setBookName("小水哦");
+//        storyRulePo.setId();
+        storyRulePo.setId(GenericPo.createUID());
         storyRulePo.setAuthorName("名称");
         return  ResponseMessage.ok( storyRuleService.insert(storyRulePo));
     }
