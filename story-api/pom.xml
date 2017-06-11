@@ -36,7 +36,7 @@
         </dependency>
         <dependency>
             <groupId>org.hsweb</groupId>
-            <artifactId>hsweb-web-core</artifactId>
+            <artifactId>hsweb-web-bean</artifactId>
             <version>${hsweb.version}</version>
         </dependency>
     </dependencies>
