@@ -8,6 +8,8 @@ import org.hsweb.web.bean.po.GenericPo;
  */
 public class StoryRulePo extends BaseRulePo {
 
+	private String name;
+
 	private String bookName;
 
 	private String authorName;
@@ -19,6 +21,14 @@ public class StoryRulePo extends BaseRulePo {
 	private String chapterName;
 
 	private String url;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getBookName() {
 		return bookName;
@@ -69,6 +79,8 @@ public class StoryRulePo extends BaseRulePo {
 	}
 
 	public interface Property extends GenericPo.Property{
+
+		String name = "name";
 
 		String bookName = "bookName";
 
