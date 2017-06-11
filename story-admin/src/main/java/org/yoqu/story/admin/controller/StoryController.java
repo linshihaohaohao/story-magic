@@ -37,11 +37,11 @@ public class StoryController extends GenericController<StoryRulePo, String> {
     public ResponseMessage getProfile() {
         StoryRulePo storyRulePo = new StoryRulePo();
         storyRulePo.setBookName("小水哦");
+        storyRulePo.setId("a4725059a1b29a6bbc1c23f8e73ec742");
 //        storyRulePo.setId("2");
 //        storyRulePo.setId();
-        storyRulePo.setId(GenericPo.createUID());
         storyRulePo.setAuthorName("名称");
-        return  ResponseMessage.ok( storyRuleService.insert(storyRulePo));
+        return  ResponseMessage.ok( storyRuleService.saveOrUpdate(storyRulePo));
     }
 
 

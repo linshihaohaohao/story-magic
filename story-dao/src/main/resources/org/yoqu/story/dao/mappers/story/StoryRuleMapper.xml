@@ -41,7 +41,7 @@
     </update>
 
     <select id="selectByPk" parameterType="string" resultMap="StoryRuleResultMap">
-        select * from Story_rule where id=#{id}
+        select * from story_story_rule where id=#{id}
     </select>
 
     <select id="select" parameterType="org.hsweb.web.bean.common.QueryParam" resultMap="StoryRuleResultMap">

@@ -10,7 +10,7 @@ import java.sql.JDBCType
 
     RDBDatabase db = database;
     db.createOrAlter("story_story_rule")
-    .addColumn().name("id").alias("id").comment("ID").jdbcType(JDBCType.VARCHAR).length(32).primaryKey().commit()
+    .addColumn().name("id").alias("id").comment("ID").jdbcType(JDBCType.VARCHAR).length(128).primaryKey().commit()
     .addColumn().name("name").alias("name").comment("名称").jdbcType(JDBCType.VARCHAR).length(128).commit()
     .addColumn().name("book_name").alias("book_name").comment("书名").jdbcType(JDBCType.VARCHAR).length(128).commit()
     .addColumn().name("author_name").alias("author_name").comment("作者").jdbcType(JDBCType.VARCHAR).length(128).commit()
