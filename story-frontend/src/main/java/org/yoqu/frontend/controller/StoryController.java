@@ -15,7 +15,7 @@ import org.yoqu.frontend.controller.frontend.service.StoryService;
  * @email wcjiang2@iflytek.com
  */
 @RestController
-@RequestMapping("v1")
+@RequestMapping("api/${api-version}/")
 public class StoryController {
     @Autowired
     private  StoryService storyService;
