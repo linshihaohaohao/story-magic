@@ -156,7 +156,7 @@
 
 # 使用技术栈
 
-项目所选用的技术栈(包括但不限于)：
+项目所选用的技术框架以及工具(包括但不限于)：
 * java
 * jdk1.8
 * maven
@@ -165,6 +165,7 @@
 * Spring Cloud Eureka
 * mysql
 * redis
+* webmagic
 
 # 项目结构
 ## 目录结构
