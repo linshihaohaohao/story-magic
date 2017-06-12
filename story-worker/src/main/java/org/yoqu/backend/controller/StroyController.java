@@ -1,12 +1,10 @@
 package org.yoqu.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.yoqu.backend.pipeline.StoryPipeline;
 import org.yoqu.backend.service.SpiderService;
+import org.yoqu.common.entity.rule.StoryRulePo;
 import org.yoqu.common.message.ResponseMessage;
 import us.codecraft.webmagic.Request;
 
@@ -33,11 +31,11 @@ public class StroyController {
     @Autowired
     private StoryPipeline storyPipeline;
 
-    @GetMapping("search")
-    public ResponseMessage searchBook(@RequestParam("name")String bookName){
+    @PostMapping("search")
+    public ResponseMessage searchBook(@RequestParam("name")String bookName, @RequestBody StoryRulePo storyRulePo){
         Request request = new Request();
-        request.setUrl("http://www.sodu.cc/result.html?searchstr="+bookName);
-        request.putExtra("type","search");
+        request.setUrl(storyRulePo.getUrl()+bookName);//"http://www.sodu.cc/result.html?searchstr="+bookName);
+        request.putExtra("storyRulePo",storyRulePo);
         spiderService.execute(request);
         return ok(storyPipeline.getResult());
     }

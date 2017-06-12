@@ -1,9 +1,8 @@
 package org.yoqu.frontend.controller.frontend.service;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.yoqu.common.entity.rule.StoryRulePo;
 import org.yoqu.common.message.ResponseMessage;
 
 /**
@@ -16,6 +15,6 @@ import org.yoqu.common.message.ResponseMessage;
 @RequestMapping("/book")
 public interface StoryService {
 
-    @GetMapping("search")
-    ResponseMessage searchBook(@RequestParam("name")String bookName);
+    @PostMapping("search")
+    ResponseMessage searchBook(@RequestParam("name")String bookName, @RequestBody()StoryRulePo storyRulePo);
 }

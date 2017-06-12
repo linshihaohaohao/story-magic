@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.yoqu.common.entity.Chapter;
 import org.yoqu.common.entity.Story;
+import org.yoqu.common.entity.rule.StoryRulePo;
 import org.yoqu.common.enums.DragRuleTypeEnum;
 import org.yoqu.common.utils.ContentStringUtils;
 import us.codecraft.webmagic.Page;
@@ -29,10 +30,11 @@ public class SoduEngineProcessor implements PageProcessor {
     @Override
     public void process(Page page) {
         Request request = page.getRequest();
-        String type = (String) request.getExtra("type");
+        StoryRulePo storyRulePo = (StoryRulePo) request.getExtra("storyRulePo");
+        String type = storyRulePo.getType();
         if (type != null) {
             if (type.equals("search")) {
-                searchRule(page);
+                searchRule(page,storyRulePo);
             } else if (type.equals("repository")) {
                 bookRepositoryRule(page, request);
             } else if (type.equals("chapters")) {
@@ -128,14 +130,16 @@ public class SoduEngineProcessor implements PageProcessor {
      *
      * @param page
      */
-    private void searchRule(Page page) {
-        List<Selectable> stories = page.getHtml().xpath("/html/body/div[@class='main-html']").nodes();
+    private void searchRule(Page page,StoryRulePo storyRulePo) {
+        List<Selectable> stories = page.getHtml().xpath(storyRulePo.getListRule()).nodes();//"/html/body/div[@class='main-html']").nodes();
         List<Story> storyList = new ArrayList<>();
         for (Selectable s : stories) {
             String url = s.links().toString();
-            String name = s.$("a", "text").toString();
+            String name = s.xpath(storyRulePo.getBookName()).toString();
+            String chapterName = s.xpath(storyRulePo.getChapterName()).toString();
             Story story = new Story();
             story.setName(name);
+            story.setNewChapter(chapterName);
             story.setBookUrl(url);
             storyList.add(story);
         }
