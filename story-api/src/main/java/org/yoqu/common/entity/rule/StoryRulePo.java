@@ -67,6 +67,22 @@ public class StoryRulePo extends BaseRulePo {
      */
     private String lastUpdateRule;
 
+    /**
+     * 规则类型
+     */
+    private DragRuleTypeEnum ruleType;
+
+    /**
+     * 封面
+     */
+    private String albumUrl;
+
+    /**
+     * Site 表ID
+     */
+    @NotEmpty
+    private String storySiteRuleId;
+
     public String getLastUpdateRule() {
         return lastUpdateRule;
     }
@@ -99,15 +115,6 @@ public class StoryRulePo extends BaseRulePo {
         this.urlRule = urlRule;
     }
 
-    public String getName() {
-        return name;
-    }
-	private DragRuleTypeEnum ruleType;
-
-	private String albumUrl;
-
-	@NotEmpty
-	private String storySiteRuleId;
 
 	public String getName() {
 		return name;
@@ -165,30 +172,30 @@ public class StoryRulePo extends BaseRulePo {
         this.url = url;
     }
 
-    public interface Property extends GenericPo.Property {
-	public DragRuleTypeEnum getRuleType() {
-		return ruleType;
-	}
+    public DragRuleTypeEnum getRuleType() {
+        return ruleType;
+    }
 
-	public void setRuleType(DragRuleTypeEnum ruleType) {
-		this.ruleType = ruleType;
-	}
+    public void setRuleType(DragRuleTypeEnum ruleType) {
+        this.ruleType = ruleType;
+    }
 
-	public String getAlbumUrl() {
-		return albumUrl;
-	}
+    public String getAlbumUrl() {
+        return albumUrl;
+    }
 
-	public void setAlbumUrl(String albumUrl) {
-		this.albumUrl = albumUrl;
-	}
+    public void setAlbumUrl(String albumUrl) {
+        this.albumUrl = albumUrl;
+    }
 
-	public String getStorySiteRuleId() {
-		return storySiteRuleId;
-	}
+    public String getStorySiteRuleId() {
+        return storySiteRuleId;
+    }
 
-	public void setStorySiteRuleId(String storySiteRuleId) {
-		this.storySiteRuleId = storySiteRuleId;
-	}
+    public void setStorySiteRuleId(String storySiteRuleId) {
+        this.storySiteRuleId = storySiteRuleId;
+    }
+
 
 	public interface Property extends GenericPo.Property{
 
@@ -205,12 +212,18 @@ public class StoryRulePo extends BaseRulePo {
         String chapterName = "chapterName";
 
         String url = "url";
-    }
+
 		String ruleType = "ruleType";
 
 		String albumUrl = "albumUrl";
 
-		String storySiteRuleId = "storySiteRuleId";
+		String urlRule = "urlRule";
+
+        String resourceSiteRule = "resourceSiteRule";
+
+        String resourceSiteUrlRule = "resourceSiteUrlRule";
+
+        String lastUpdateRule = "lastUpdateRule";
 
 	}
 
