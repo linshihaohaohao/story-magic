@@ -40,12 +40,12 @@ public class StroyController {
         return ok(storyPipeline.getResult());
     }
 
-    @GetMapping("repository")
-    public ResponseMessage repository(@RequestParam("url")String url,@RequestParam("name")String name){
+    @PostMapping("repository")
+    public ResponseMessage repository(@RequestParam("name")String name,@RequestParam("url")String bookUrl ,@RequestBody StoryRulePo storyRulePo){
         Request request = new Request();
-        request.setUrl(url);
-        request.putExtra("type","repository");
+        request.setUrl(bookUrl);
         request.putExtra("bookName",name);
+        request.putExtra("storyRulePo",storyRulePo);
         spiderService.execute(request);
         return ok(storyPipeline.getResult());
     }

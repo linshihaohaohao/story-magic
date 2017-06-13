@@ -17,4 +17,7 @@ public interface StoryService {
 
     @PostMapping("search")
     ResponseMessage searchBook(@RequestParam("name")String bookName, @RequestBody()StoryRulePo storyRulePo);
+
+    @PostMapping("repository")
+    ResponseMessage repository(@RequestParam("name")String name,@RequestParam("url")String bookUrl , @RequestBody StoryRulePo storyRulePo);
 }

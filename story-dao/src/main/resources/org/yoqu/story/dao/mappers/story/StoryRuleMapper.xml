@@ -12,7 +12,10 @@
         <result property="listRule" column="list_rule" javaType="String" jdbcType="VARCHAR"/>
         <result property="chapterName" column="chapter_name" javaType="String" jdbcType="VARCHAR"/>
         <result property="url" column="url" javaType="String" jdbcType="VARCHAR"/>
-        <!--<result property="age" column="age" javaType="int" jdbcType="INTEGER"/>-->
+        <result property="urlRule" column="url_rule" javaType="String" jdbcType="VARCHAR"/>
+        <result property="resourceSiteRule" column="resource_site_rule" javaType="String" jdbcType="VARCHAR"/>
+        <result property="resourceSiteUrlRule" column="resource_site_url_rule" javaType="String" jdbcType="VARCHAR"/>
+        <result property="lastUpdateRule" column="last_update_date_rule" javaType="String" jdbcType="VARCHAR"/>
         <result property="createBy" column="create_by" javaType="String" jdbcType="VARCHAR"/>
         <result property="updateBy" column="update_by" javaType="String" jdbcType="VARCHAR"/>
         <result property="createDate" column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>

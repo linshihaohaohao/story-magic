@@ -24,10 +24,10 @@
  3. 修改`story-admin`和`frontend`中的`application-dev.yml`文件中的数据库连接账号和密码
  4. 启动`story-admin`，项目第一次启动会往数据库中建立初始脚本
  5. 启动`story-worker`.
- 6. 启动`story-frontend` 在浏览器输入http://localhost:3333/api/v1/search?name=***填写搜索的书名***
+ 6. 启动`story-frontend` 在浏览器输入http://localhost:3333/api/v1/search?name= ***填写搜索的书名***
     例如输入http://localhost:3333/api/v1/search?name=逆鳞
     返回的结果如下：
-    ```json
+```json
        {
            "code": 200,
            "data": {
@@ -147,7 +147,7 @@
            "message": null,
            "success": true
        }
-    ```
+```
 
 
 # 程序交流

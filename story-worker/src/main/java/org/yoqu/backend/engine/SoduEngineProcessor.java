@@ -36,7 +36,7 @@ public class SoduEngineProcessor implements PageProcessor {
             if (type.equals("search")) {
                 searchRule(page,storyRulePo);
             } else if (type.equals("repository")) {
-                bookRepositoryRule(page, request);
+                bookRepositoryRule(page, request,storyRulePo);
             } else if (type.equals("chapters")) {
                 chapterRule(page, request);
             } else if (type.equals("content")) {
@@ -104,15 +104,15 @@ public class SoduEngineProcessor implements PageProcessor {
      * @param page
      * @param request
      */
-    private void bookRepositoryRule(Page page, Request request) {
-        List<Selectable> selectableList = page.getHtml().xpath("/html/body/div[@class='main-html']").nodes();
+    private void bookRepositoryRule(Page page, Request request,StoryRulePo storyRulePo) {
+        List<Selectable> selectableList = page.getHtml().xpath(storyRulePo.getListRule()).nodes();//.xpath("/html/body/div[@class='main-html']").nodes();
         List<Story> storyList = new ArrayList<>();
         for (Selectable s : selectableList) {
-            String chapterName = s.xpath("//div/div[1]/a/text()").toString();
-            String bookUrl = s.xpath("//div/div[1]").links().toString();
-            String resourceSite = s.xpath("div/div[2]/a/text()").toString();
-            String resourceSiteUrl = s.xpath("div/div[2]/a").links().toString();
-            String lastDate = s.xpath("//div/div[3]/text()").toString();
+            String chapterName = s.xpath(storyRulePo.getChapterName()).toString();//s.xpath("//div/div[1]/a/text()").toString();
+            String bookUrl = s.xpath(storyRulePo.getUrlRule()).links().toString();//s.xpath("//div/div[1]").links().toString();
+            String resourceSite = s.xpath(storyRulePo.getResourceSiteRule()).toString();//s.xpath("div/div[2]/a/text()").toString();
+            String resourceSiteUrl = s.xpath(storyRulePo.getResourceSiteUrlRule()).toString();//s.xpath("div/div[2]/a").links().toString();
+            String lastDate = s.xpath(storyRulePo.getLastUpdateRule()).toString();//s.xpath("//div/div[3]/text()").toString();
             Story story = new Story();
             story.setBookUrl(bookUrl);
             story.setResourceSite(resourceSite);
