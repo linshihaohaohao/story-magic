@@ -1,8 +1,14 @@
+package scripts.upgrade
+
 import org.hsweb.ezorm.rdb.RDBDatabase
 
 import java.sql.JDBCType
 
-RDBDatabase db = database;
+/**
+ * Created by Admin on 2017/6/9.
+ */
+
+    RDBDatabase db = database;
 db.createOrAlter("story_story_site_rule")
         .addColumn().name("id").alias("id").comment("ID").jdbcType(JDBCType.VARCHAR).length(128).primaryKey().commit()
         .addColumn().name("name").alias("name").comment("名称").jdbcType(JDBCType.VARCHAR).length(128).commit()
@@ -23,6 +29,7 @@ db.getTable("story_story_site_rule")
                 "create_date" : new Date(),
                 "delete_flag": 0])
         .exec();
+
 
 db.createOrAlter("story_story_rule")
         .addColumn().name("id").alias("id").comment("ID").jdbcType(JDBCType.VARCHAR).length(128).primaryKey().commit()
@@ -50,5 +57,3 @@ db.getTable("story_story_rule")
                 "url"        : "http://www.sodu.cc/result.html?searchstr=",
                 "delete_flag": 0])
         .exec();
-
-

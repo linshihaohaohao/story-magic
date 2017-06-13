@@ -2,31 +2,27 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.yoqu.story.dao.mappers.story.StoryRuleMapper">
-    <resultMap id="StoryRuleResultMap" type="org.yoqu.common.entity.rule.StoryRulePo">
+<mapper namespace="org.yoqu.story.dao.mappers.story.StorySiteRuleMapper">
+    <resultMap id="StorySiteRuleResultMap" type="org.yoqu.common.entity.rule.StorySiteRulePo">
         <id property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
+
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
-        <result property="bookName" column="book_name" javaType="String" jdbcType="VARCHAR"/>
-        <result property="authorName" column="author_name" javaType="String" jdbcType="VARCHAR"/>
-        <result property="type" column="type" javaType="String" jdbcType="VARCHAR"/>
-        <result property="listRule" column="list_rule" javaType="String" jdbcType="VARCHAR"/>
-        <result property="chapterName" column="chapter_name" javaType="String" jdbcType="VARCHAR"/>
+
         <result property="url" column="url" javaType="String" jdbcType="VARCHAR"/>
-        <result property="rule_type" column="rule_type" javaType="String" jdbcType="VARCHAR"/>
-        <result property="album_url" column="album_url" javaType="String" jdbcType="VARCHAR"/>
-        <result property="story_site_rule_id" column="story_site_rule_id" javaType="String" jdbcType="VARCHAR"/>
         <!-- 通用 -->
         <result property="createBy" column="create_by" javaType="String" jdbcType="VARCHAR"/>
         <result property="updateBy" column="update_by" javaType="String" jdbcType="VARCHAR"/>
         <result property="createDate" column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
         <result property="updateDate" column="update_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
         <result property="deleteFlag" column="delete_flag" javaType="Boolean" jdbcType="BOOLEAN"/>
+        <collection property="storyRulePos" column="id" ofType="org.yoqu.common.entity.rule.StoryRulePo"
+                    select="org.yoqu.story.dao.mappers.story.StoryRuleMapper.selectByStorySiteRuleId"/>
     </resultMap>
 
     <!--用于动态生成sql所需的配置-->
     <sql id="config">
-        <bind name="resultMapId" value="'StoryRuleResultMap'"/>
-        <bind name="tableName" value="'story_story_rule'"/>
+        <bind name="resultMapId" value="'StorySiteRuleResultMap'"/>
+        <bind name="tableName" value="'story_story_site_rule'"/>
     </sql>
     <insert id="insert" parameterType="org.hsweb.web.bean.common.InsertParam">
         <include refid="config"/>
@@ -43,15 +39,11 @@
         <include refid="BasicMapper.buildUpdateSql"/>
     </update>
 
-    <select id="selectByPk" parameterType="string" resultMap="StoryRuleResultMap">
-        select * from story_story_rule where id=#{id}
+    <select id="selectByPk" parameterType="string" resultMap="StorySiteRuleResultMap">
+        select * from story_story_site_rule where id=#{id}
     </select>
 
-    <select id="selectByStorySiteRuleId" parameterType="string" resultMap="StoryRuleResultMap">
-        select * from story_story_rule where story_site_rule_id=#{story_site_rule_id}
-    </select>
-
-    <select id="select" parameterType="org.hsweb.web.bean.common.QueryParam" resultMap="StoryRuleResultMap">
+    <select id="select" parameterType="org.hsweb.web.bean.common.QueryParam" resultMap="StorySiteRuleResultMap">
         <include refid="config"/>
         <include refid="BasicMapper.buildSelectSql"/>
     </select>

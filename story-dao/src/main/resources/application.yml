@@ -18,7 +18,7 @@ hsweb:
     dynamic-datasource: #动态数据源配置
           url: jdbc:mysql://localhost:3306/hsweb??useUnicode=true&characterEncoding=utf-8
           username: root
-          password:
+          password: 123456
           icatch:
             max-actives: 100
             output-dir: ./data/atomikos
@@ -31,5 +31,5 @@ spring:
     datasource:
       url: jdbc:mysql://localhost:3306/hsweb??useUnicode=true&characterEncoding=utf-8
       username: root
-      password:
+      password: 123456
       type: com.mysql.jdbc.jdbc2.optional.MysqlDataSource

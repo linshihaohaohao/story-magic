@@ -1,6 +1,9 @@
 package org.yoqu.common.entity.rule;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hsweb.web.bean.po.GenericPo;
+import org.yoqu.common.enums.DragRuleTypeEnum;
+
 /**
  * Created by Kai on 2017/6/9.
  *
@@ -21,6 +24,13 @@ public class StoryRulePo extends BaseRulePo {
 	private String chapterName;
 
 	private String url;
+
+	private DragRuleTypeEnum ruleType;
+
+	private String albumUrl;
+
+	@NotEmpty
+	private String storySiteRuleId;
 
 	public String getName() {
 		return name;
@@ -78,6 +88,30 @@ public class StoryRulePo extends BaseRulePo {
 		this.url = url;
 	}
 
+	public DragRuleTypeEnum getRuleType() {
+		return ruleType;
+	}
+
+	public void setRuleType(DragRuleTypeEnum ruleType) {
+		this.ruleType = ruleType;
+	}
+
+	public String getAlbumUrl() {
+		return albumUrl;
+	}
+
+	public void setAlbumUrl(String albumUrl) {
+		this.albumUrl = albumUrl;
+	}
+
+	public String getStorySiteRuleId() {
+		return storySiteRuleId;
+	}
+
+	public void setStorySiteRuleId(String storySiteRuleId) {
+		this.storySiteRuleId = storySiteRuleId;
+	}
+
 	public interface Property extends GenericPo.Property{
 
 		String name = "name";
@@ -92,7 +126,12 @@ public class StoryRulePo extends BaseRulePo {
 
 		String chapterName = "chapterName";
 
-		String url = "url";
+		String ruleType = "ruleType";
+
+		String albumUrl = "albumUrl";
+
+		String storySiteRuleId = "storySiteRuleId";
+
 	}
 
 }
