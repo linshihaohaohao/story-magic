@@ -30,8 +30,14 @@ public class StoryController {
 
     @GetMapping("search")
     public ResponseMessage searchBook(@RequestParam("name")String bookName){
-        List<StoryRulePo> storyRulePoList = storyRuleService.select();
+        List<StoryRulePo> storyRulePoList = storyRuleService.selectByType("search");
         return storyService.searchBook(bookName,storyRulePoList.get(0));
+    }
+
+    @GetMapping("repository")
+    public ResponseMessage bookRepository(@RequestParam("name")String bookName,@RequestParam("bookUrl")String url){
+        List<StoryRulePo> storyRulePoList = storyRuleService.selectByType("repository");
+        return storyService.repository(bookName,url,storyRulePoList.get(0));
     }
 
 }
