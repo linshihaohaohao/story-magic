@@ -9,7 +9,7 @@ multipart:
 #spring config
 spring:
     application:
-      name:story-frontend
+        name: story-frontend
     profiles:
        active: dev
     freemarker :

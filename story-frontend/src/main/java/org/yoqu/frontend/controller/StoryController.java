@@ -5,8 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.yoqu.common.entity.rule.StoryRulePo;
 import org.yoqu.common.message.ResponseMessage;
 import org.yoqu.frontend.controller.frontend.service.StoryService;
+import org.yoqu.story.dao.service.StoryRuleService;
+
+import java.util.List;
 
 /**
  * @author yoqu
@@ -17,12 +21,23 @@ import org.yoqu.frontend.controller.frontend.service.StoryService;
 @RestController
 @RequestMapping("api/${api-version}/")
 public class StoryController {
+
     @Autowired
     private  StoryService storyService;
 
+    @Autowired
+    private StoryRuleService storyRuleService;
+
     @GetMapping("search")
     public ResponseMessage searchBook(@RequestParam("name")String bookName){
-        return storyService.searchBook(bookName);
+        List<StoryRulePo> storyRulePoList = storyRuleService.selectByType("search");
+        return storyService.searchBook(bookName,storyRulePoList.get(0));
+    }
+
+    @GetMapping("repository")
+    public ResponseMessage bookRepository(@RequestParam("name")String bookName,@RequestParam("bookUrl")String url){
+        List<StoryRulePo> storyRulePoList = storyRuleService.selectByType("repository");
+        return storyService.repository(bookName,url,storyRulePoList.get(0));
     }
 
 }

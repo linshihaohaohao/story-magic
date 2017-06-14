@@ -1,0 +1,20 @@
+spider:
+  config:
+  #默认线程数量
+    thread: 5
+  #重试次数
+    retryTime: 3
+
+spring:
+  application:
+    name: worker-service
+server:
+  port: 2222
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+    #连接时间可以设置为较长
+    eureka-server-connect-timeout-seconds: 30
+    ##设置read-timeout尽量避免重复为爬虫提交任务
+    eureka-server-read-timeout-seconds: 60

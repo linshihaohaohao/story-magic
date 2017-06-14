@@ -8,9 +8,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableConfigurationProperties
 @EnableDiscoveryClient
-public class StoryMagicApplication {
+public class StoryWorkerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StoryMagicApplication.class, args);
+		SpringApplication.run(StoryWorkerApplication.class, args);
 	}
 }

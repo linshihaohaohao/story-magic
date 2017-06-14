@@ -19,7 +19,11 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.yoqu.common.entity.rule.StoryRulePo;
+import org.yoqu.common.entity.rule.StorySiteRulePo;
 import org.yoqu.story.dao.service.StoryRuleService;
+import org.yoqu.story.dao.service.StorySiteRuleService;
+
+import java.util.List;
 
 /**
  * Created by k on 2017/6/11.
@@ -39,6 +43,9 @@ public class ServiceTest {
     @Autowired
     StoryRuleService storyRuleService;
 
+    @Autowired
+    StorySiteRuleService storySiteRuleService;
+
 //    @Override
 //    protected StoryRuleService getService() {
 //        return this.storyRuleService;
@@ -54,6 +61,12 @@ public class ServiceTest {
         storyRulePo.setId(GenericPo.createUID());
         storyRulePo.setAuthorName("名称");
         storyRuleService.saveOrUpdate(storyRulePo);
+    }
+
+    @Test
+    public void getStorySite(){
+      List<StorySiteRulePo> storySiteRulePos = storySiteRuleService.select();
+      System.out.println(storySiteRulePos);
     }
 
 }
