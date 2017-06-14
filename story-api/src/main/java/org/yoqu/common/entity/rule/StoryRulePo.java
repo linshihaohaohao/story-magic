@@ -225,6 +225,9 @@ public class StoryRulePo extends BaseRulePo {
 
         String lastUpdateRule = "lastUpdateRule";
 
+        String storySiteRuleId = "storySiteRuleId";
+
+
 	}
 
 }

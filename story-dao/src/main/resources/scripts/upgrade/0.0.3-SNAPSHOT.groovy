@@ -23,7 +23,7 @@ db.createOrAlter("story_story_site_rule")
 
 db.getTable("story_story_site_rule")
         .createInsert()
-        .value(["id"         : "bfd6296a4f526ebb9683d7c94e2ba310", "name": "Sodu",
+        .value(["id"         : "92fda67abb81d6a6d5e2243382ce12eb", "name": "Sodu",
                 "url"        : "http://www.sodu.cc",
                 "create_by" : "admin",
                 "create_date" : new Date(),
@@ -47,13 +47,19 @@ db.createOrAlter("story_story_rule")
         .addColumn().name("delete_flag").alias("delete_flag").comment("删除标签").jdbcType(JDBCType.BOOLEAN).length(2).commit()
         .addColumn().name("rule_type").alias("rule_type").comment("规则类型"). jdbcType(JDBCType.VARCHAR).length(128).commit()
         .addColumn().name("album_url").alias("album_url").comment("小说封面"). jdbcType(JDBCType.VARCHAR).length(128).commit()
+        .addColumn().name("url_rule").alias("url_rule").comment("详情规则"). jdbcType(JDBCType.VARCHAR).length(128).commit()
+        .addColumn().name("resource_site_rule").alias("resource_site_rule").comment("资源网站名称规则"). jdbcType(JDBCType.VARCHAR).length(128).commit()
+        .addColumn().name("resource_site_url_rule").alias("resource_site_url_rule").comment("资源网站Url规则"). jdbcType(JDBCType.VARCHAR).length(128).commit()
+        .addColumn().name("last_update_date_rule").alias("last_update_date_rule").comment("最后更新时间获取规则"). jdbcType(JDBCType.VARCHAR).length(128).commit()
         .addColumn().name("story_site_rule_id").alias("story_site_rule_id").notNull().comment("站点ID"). jdbcType(JDBCType.VARCHAR).length(128).commit()
         .commit();
+
 
 db.getTable("story_story_rule")
         .createInsert()
         .value(["id"         : "bfd6296a4f526ebb9683d7c94e2ba310", "name": "搜读搜索", "book_name": "//div[1]/a[1]/text()",
                 "author_name": "//div[2]/a[1]/text()", "type": "search", "list_rule": "/html/body/div[@class='main-html']",
                 "url"        : "http://www.sodu.cc/result.html?searchstr=",
+                "story_site_rule_id":"92fda67abb81d6a6d5e2243382ce12eb",
                 "delete_flag": 0])
         .exec();
