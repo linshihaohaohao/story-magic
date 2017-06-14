@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Controller;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.yoqu.common.entity.rule.StoryRulePo;
 import org.yoqu.story.dao.service.StoryRuleService;
@@ -24,9 +25,11 @@ import org.yoqu.story.dao.service.StoryRuleService;
  * Created by k on 2017/6/11.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ServiceTest.class)
+@SpringBootTest
+@EnableAutoConfiguration(exclude = CMDWebSocketAutoConfiguration.class)
+@SpringBootConfiguration
 @ComponentScan(basePackages = {"org.yoqu.story"})
-@MapperScan(value = "org.yoqu.story.dao.mappers",annotationClass = Mapper.class)
+@Controller
 public class ServiceTest {
 
     @Test
@@ -50,8 +53,7 @@ public class ServiceTest {
 //        storyRulePo.setId();
         storyRulePo.setId(GenericPo.createUID());
         storyRulePo.setAuthorName("名称");
-         String id = storyRuleService.insert(storyRulePo);
-         System.out.println(id);
+        storyRuleService.saveOrUpdate(storyRulePo);
     }
 
 }
