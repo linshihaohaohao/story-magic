@@ -1,12 +1,14 @@
 package org.yoqu.story.admin.controller;
 
 import org.hsweb.web.core.authorize.annotation.Authorize;
+import org.hsweb.web.core.exception.NotFoundException;
 import org.hsweb.web.core.utils.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.yoqu.common.entity.rule.StorySiteRulePo;
 import org.yoqu.story.dao.service.StorySiteRuleService;
 
 /**
@@ -29,10 +31,14 @@ public class StoryController {
 
     @RequestMapping(value = {"/save.html"})
     @Authorize
-    public ModelAndView save(@RequestParam("id") String id) throws Exception {
+    public ModelAndView save(@RequestParam(value = "id",required = false) String id ) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("absPath", WebUtil.getBasePath(WebUtil.getHttpServletRequest()));
-        modelAndView.addObject("param",storySiteRuleService.selectByPk(id));
+        StorySiteRulePo storySiteRulePo = storySiteRuleService.selectByPk(id);
+        if(null != id && null == storySiteRulePo){
+            throw new NotFoundException("data is not found!");
+        }
+        modelAndView.addObject("param",storySiteRulePo == null?null:storySiteRulePo.getId());
         return modelAndView;
     }
 }

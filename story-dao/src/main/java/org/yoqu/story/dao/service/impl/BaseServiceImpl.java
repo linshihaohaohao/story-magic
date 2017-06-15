@@ -28,23 +28,29 @@ public class BaseServiceImpl<T extends BaseRulePo,M extends BaseMapper> extends 
 	}
 
 	@Override
-	public int saveOrUpdate(T t){
+	public String save(T t){
 		User user = WebUtil.getLoginUser();
 		T  old = selectByPk(t.getId());
+		//更新
 		if (null != old){
-			t.setUpdateBy(user.getUsername());
+			if( null != user)
+				t.setUpdateBy(user.getUsername());
+			else t.setUpdateBy("Test");
 			t.setUpdateDate(new Date());
-			return createUpdate(t)
+			createUpdate(t)
 					.fromBean()
 					.where(BaseRulePo.Property.id)
 					.exec();
-		}else {
-			t.setCreateBy(user.getUsername());
+			return t.getId();
+		}else {//插入
+			if( null != user)
+				t.setCreateBy(user.getUsername());
+			else t.setUpdateBy("Test");
 			t.setCreateDate(new Date());
 			t.setId(GenericPo.createUID());
 			insert(t);
 		}
-		return 1;
+		return t.getId();
 	}
 
 }

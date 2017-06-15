@@ -24,47 +24,91 @@
         <tbody>
         <tr class="firstRow">
             <th style="border-color: rgb(221, 221, 221);" rowspan="1" colspan="4"><span id="title" style="font-size: 24px;">
-            ${param.id???string('编辑用户','新建用户')}
+            ${param???string('编辑站点','新建站点')}
             </span></th>
         </tr>
         <tr>
-            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="210">用户名</td>
-            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="433" align="left">
-                <input style="width:100%" required="true" name="username" id="username" class="mini-textbox"></td>
-            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="131">密码</td>
-            <td valign="top" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="434">
-                <input style="width:100%" required="true" name="password" id="password" class="mini-password"></td>
+            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="20%">名称</td>
+            <td valign="top" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="80%">
+                <input style="width:100%" required="true" name="name" id="name" class="mini-textbox"></td>
         </tr>
         <tr>
-            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="210">姓名</td>
-            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="433" align="left"><input style="width:100%" name="name" id="name" class="mini-textbox"></td>
-            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="131">电话</td>
-            <td valign="top" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="434"><input style="width:100%" name="phone" id="phone" class="mini-textbox"></td>
+            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="20%">URL</td>
+            <td valign="top" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="80%">
+                <input style="width:100%" required="true" name="url" id="url" class="mini-textbox"></td>
         </tr>
         <tr>
-            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="210">邮箱</td>
-            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="433" align="left">
-                <input style="width:100%" name="email" id="email" vtype="email" class="mini-textbox"></td>
-            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" rowspan="1" colspan="2"><br></td>
-        </tr>
-        <tr>
-            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="210">角色配置</td>
-            <td valign="top" rowspan="1" colspan="3" style="border-color: rgb(221, 221, 221);">
-
-            </td>
+            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="20%">类型</td>
+            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="80%" align="left">
+                <input style="width:100%" name="type" id="type" class="mini-textbox"></td>
         </tr>
         </tbody>
     </table>
 </div>
-<div id="roleGrid" class="mini-datagrid" style="width:80%;height:200px;margin: auto"
-     url="<@global.api "role?paging=false"/>" ajaxOptions="{type:'GET'}" showpager="false"
-     allowCellSelect="true" multiSelect="true" >
-    <div property="columns">
-        <div type="checkcolumn"></div>
-        <div name="id" field="id" width="60">ID</div>
-        <div name="name" field="name" width="120">角色名称</div>
-        <div name="remark" field="remark" width="120">备注</div>
+
+<div style="margin: auto;width:80%;">
+    <br/>
+    <h2 align="center">编辑网站规则</h2>
+    <a class="mini-button" iconCls="icon-add" onclick="mini.get('m_option_table').addNode({})" plain="true"></a>
+    <div id="m_option_table" class="mini-treegrid"
+         style="margin: auto;width:100%;height:300px;border: 0px;"
+         showPager="false" allowCellEdit="true" allowDrop="true"
+         allowCellSelect="true" llowDrag="true" showTreeIcon="false"
+         allowAlternating="true" editNextOnEnterKey="true">
+        <div property="columns">
+            <#--<div type="indexcolumn" name="treeColumn"  align="center" headerAlign="center">拖动排序</div> treeColumn="treeColumn" a-->
+            <div field="name" width="60" align="center" headerAlign="center">名称
+                <input property="editor" required="true" class="mini-textbox"/>
+            </div>
+            <div field="bookName" width="60" align="center" headerAlign="center">书名
+                <input property="editor" class="mini-textarea"/>
+            </div>
+            <div field="authorName" width="60" align="center" headerAlign="center">作者
+                <input property="editor" class="mini-textarea"/>
+            </div>
+            <div field="type" width="60" align="center" headerAlign="center">类型
+                <input property="editor" class="mini-textarea"/>
+            </div>
+            <div field="listRule" width="60" align="center" headerAlign="center">列表规则
+                <input property="editor" class="mini-textarea"/>
+            </div>
+            <div field="chapterName" width="60" align="center" headerAlign="center">章节规则
+                <input property="editor" class="mini-textarea"/>
+            </div>
+            <div field="url" width="60" align="center" headerAlign="center">页面链接
+                <input property="editor" required="true" class="mini-textarea"/>
+            </div>
+            <div field="urlRule" width="60" align="center" headerAlign="center">详情规则
+                <input property="editor" class="mini-textarea"/>
+            </div>
+            <div field="resourceSiteRule" width="60" align="center" headerAlign="center">资源网站名称规则
+                <input property="editor" class="mini-textarea"/>
+            </div>
+            <div field="resourceSiteUrlRule" width="60" align="center" headerAlign="center">资源网站Url规则
+                <input property="editor" class="mini-textarea"/>
+            </div>
+            <div field="lastUpdateRule" width="60" align="center" headerAlign="center">最后更新时间获取规则
+                <input property="editor" class="mini-textarea"/>
+            </div>
+            <div field="ruleType" width="60" align="center" headerAlign="center">规则类型
+                <input property="editor" class="mini-textarea"/>
+            </div>
+            <div field="albumUrl" width="60" align="center" headerAlign="center">封面
+                <input property="editor" class="mini-textarea"/>
+            </div>
+            <div name="action" renderer="renderAction" align="center" headerAlign="center" width="50">操作</div>
+        </div>
     </div>
+</div>
+<#--<div id="roleGrid" class="mini-datagrid" style="width:80%;height:200px;margin: auto"-->
+     <#--url="<@global.api "role?paging=false"/>" ajaxOptions="{type:'GET'}" showpager="false"-->
+     <#--allowCellSelect="true" multiSelect="true" >-->
+    <#--<div property="columns">-->
+        <#--<div type="checkcolumn"></div>-->
+        <#--<div name="id" field="id" width="60">ID</div>-->
+        <#--<div name="name" field="name" width="120">角色名称</div>-->
+        <#--<div name="remark" field="remark" width="120">备注</div>-->
+    <#--</div>-->
 </div>
 <#--
 position:fixed;z-index: 99999;bottom: 0px;-->
@@ -76,6 +120,6 @@ position:fixed;z-index: 99999;bottom: 0px;-->
 </html>
 <@global.importRequest/>
 <script type="text/javascript">
-    var id = "${param.id!''}";
+    var storySiteId = "${param!''}";
 </script>
-<@global.resources 'js/storyRule/save.js'/>
+<@global.resources 'js/storyRule/storySiteSave.js'/>

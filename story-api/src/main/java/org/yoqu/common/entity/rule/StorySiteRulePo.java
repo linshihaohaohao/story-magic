@@ -15,6 +15,8 @@ public class StorySiteRulePo extends BaseRulePo{
     /** 网站地址*/
     private String url;
 
+    /** 网站类型*/
+    private String type;
 
     /** 网站内容规则 */
     private List<StoryRulePo> storyRulePos;
@@ -27,6 +29,12 @@ public class StorySiteRulePo extends BaseRulePo{
         this.name = name;
     }
 
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
     public String getUrl() {
         return url;
     }
@@ -49,7 +57,8 @@ public class StorySiteRulePo extends BaseRulePo{
 
         String url = "url";
 
-        String storyRulePos = "storyRulePos";
+        String type = "type";
 
+        String storyRulePos = "storyRulePos";
     }
 }

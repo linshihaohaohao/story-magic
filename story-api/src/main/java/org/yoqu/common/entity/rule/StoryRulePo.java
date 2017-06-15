@@ -15,21 +15,25 @@ public class StoryRulePo extends BaseRulePo {
     /**
      * 规则名称
      */
+    @NotEmpty
     private String name;
 
     /**
      * 书籍名字规则
      */
+    @NotEmpty
     private String bookName;
 
     /**
      * 作者名字规则
      */
+    @NotEmpty
     private String authorName;
 
     /**
      * 类型
      */
+    @NotEmpty
     private String type;
 
     /**
@@ -43,8 +47,9 @@ public class StoryRulePo extends BaseRulePo {
     private String chapterName;
 
     /**
-     * 网站url
+     * 页面url
      */
+    @NotEmpty
     private String url;
 
     /**

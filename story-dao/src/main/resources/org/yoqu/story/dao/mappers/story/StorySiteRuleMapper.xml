@@ -7,7 +7,7 @@
         <id property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
 
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
-
+        <result property="type" column="type" javaType="String" jdbcType="VARCHAR"/>
         <result property="url" column="url" javaType="String" jdbcType="VARCHAR"/>
         <!-- 通用 -->
         <result property="createBy" column="create_by" javaType="String" jdbcType="VARCHAR"/>
