@@ -75,6 +75,11 @@
        }
 ```
 
+## 更多API文档
+ 本地能成功跑起项目后，输入localhost:3333/swagger-ui.html查看API文档，文档使用swagger-ui
+ 截图展示：
+![小说接口文档](document/小说接口api文档.png)
+
 
 # 项目结构
 
@@ -101,11 +106,6 @@
 
 ![小说阅读流程图](document/小说阅读流程图.png)
 
-## API文档
-
- 本地能成功跑起项目后，输入localhost:3333/swagger-ui.html查看API文档，文档使用swagger-ui
- 截图展示：
-![小说接口文档](document/小说接口api文档.png)
 
 # 程序交流
 
