@@ -46,57 +46,59 @@
     </table>
 </div>
 
-<div style="margin: auto;width:80%;">
+<div id="story-form" style="margin: auto;width:80%;">
     <br/>
     <h2 align="center">编辑网站规则</h2>
     <a class="mini-button" iconCls="icon-add" onclick="mini.get('m_option_table').addNode({})" plain="true"></a>
     <div id="m_option_table" class="mini-treegrid"
          style="margin: auto;width:100%;height:300px;border: 0px;"
-         showPager="false" allowCellEdit="true" allowDrop="true"
-         allowCellSelect="true" llowDrag="true" showTreeIcon="false"
-         allowAlternating="true" editNextOnEnterKey="true">
-        <div property="columns">
-            <#--<div type="indexcolumn" name="treeColumn"  align="center" headerAlign="center">拖动排序</div> treeColumn="treeColumn" a-->
+         showPager="false" allowCellEdit="true" allowDrop="true" resultAsTree="false"
+         allowCellSelect="true" llowDrag="false" showTreeIcon="true"
+         allowAlternating="true" editNextOnEnterKey="false" idField="id">
+        <div property="columns" >
+            <#--<div type="indexcolumn" name="treeColumn"  align="center" headerAlign="center">拖动排序</div>-->
+            <#--treeColumn="treeColumn" a-->
             <div field="name" width="60" align="center" headerAlign="center">名称
-                <input property="editor" required="true" class="mini-textbox"/>
+                <input property="editor" required="true"  name="name" id="name" class="mini-textbox"/>
             </div>
             <div field="bookName" width="60" align="center" headerAlign="center">书名
-                <input property="editor" class="mini-textarea"/>
+                <input property="editor" class="mini-textbox" name="bookName" id="bookName"/>
             </div>
             <div field="authorName" width="60" align="center" headerAlign="center">作者
-                <input property="editor" class="mini-textarea"/>
+                <input property="editor" class="mini-textbox"/>
             </div>
             <div field="type" width="60" align="center" headerAlign="center">类型
-                <input property="editor" class="mini-textarea"/>
+                <input property="editor" class="mini-textbox"/>
             </div>
             <div field="listRule" width="60" align="center" headerAlign="center">列表规则
-                <input property="editor" class="mini-textarea"/>
+                <input property="editor" class="mini-textbox"/>
             </div>
             <div field="chapterName" width="60" align="center" headerAlign="center">章节规则
-                <input property="editor" class="mini-textarea"/>
+                <input property="editor" class="mini-textbox"/>
             </div>
             <div field="url" width="60" align="center" headerAlign="center">页面链接
-                <input property="editor" required="true" class="mini-textarea"/>
+                <input property="editor" required="true" class="mini-textbox"/>
             </div>
             <div field="urlRule" width="60" align="center" headerAlign="center">详情规则
-                <input property="editor" class="mini-textarea"/>
+                <input property="editor" class="mini-textbox"/>
             </div>
             <div field="resourceSiteRule" width="60" align="center" headerAlign="center">资源网站名称规则
-                <input property="editor" class="mini-textarea"/>
+                <input property="editor" class="mini-textbox"/>
             </div>
             <div field="resourceSiteUrlRule" width="60" align="center" headerAlign="center">资源网站Url规则
-                <input property="editor" class="mini-textarea"/>
+                <input property="editor" class="mini-textbox"/>
             </div>
             <div field="lastUpdateRule" width="60" align="center" headerAlign="center">最后更新时间获取规则
-                <input property="editor" class="mini-textarea"/>
+                <input property="editor" class="mini-textbox"/>
             </div>
             <div field="ruleType" width="60" align="center" headerAlign="center">规则类型
-                <input property="editor" class="mini-textarea"/>
+                <input property="editor" class="mini-textbox"/>
             </div>
             <div field="albumUrl" width="60" align="center" headerAlign="center">封面
-                <input property="editor" class="mini-textarea"/>
+                <input property="editor" class="mini-textbox"/>
             </div>
-            <div name="action" renderer="renderAction" align="center" headerAlign="center" width="50">操作</div>
+            <div name="action" renderer="renderAction" align="center" headerAlign="center" width="50">操作
+            </div>
         </div>
     </div>
 </div>

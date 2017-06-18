@@ -23,6 +23,13 @@ public class StoryRuleServiceImpl extends BaseServiceImpl<StoryRulePo, StoryRule
     }
 
     @Override
+    public List<StoryRulePo>selectBySiteId(String id){
+        QueryParam queryParam = new QueryParam();
+        queryParam.and("storySiteRuleId","=",id);
+        return getMapper().select(queryParam);
+    }
+
+    @Override
     public StoryRulePo selectByResource(String url, String type) {
         QueryParam queryParam = new QueryParam();
         String domain = URLUtils.getUrlDomain(url);
