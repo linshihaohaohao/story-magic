@@ -1,4 +1,4 @@
-# 
+# 分布式小说爬虫说明
 
 `author` : [yoqu](http://www.yoqu.org) [Zack](https://github.com/uSERken)
 
@@ -17,6 +17,17 @@
 
 * 提供一套简易风格界面用于阅读小说
 
+
+# 开发进度
+
+- [x] 后台规则管理
+- [x] eureka-server搭建
+- [x] 小说具体爬取功能开发
+- [ ] 小说入库存储优化
+- [ ] 小说redis缓存功能
+- [ ] 小说前端html界面提供
+- [ ] 前端restful接口基于oath2授权认证开发
+
 # 启动项目
 
 ## 启动步骤
@@ -28,6 +39,8 @@
  6. 启动`story-frontend` 在浏览器输入http://localhost:3333/api/v1/search?name= ***填写搜索的书名***
     例如输入http://localhost:3333/api/v1/search?name=逆鳞
     返回的结果如下：
+
+
 ```json
        {
            "code": 200,
@@ -150,6 +163,7 @@
        }
 ```
 
+
 ## API文档
  本地能成功跑起项目后，输入localhost:3333/swagger-ui.html查看API文档，文档使用swagger-ui
  截图展示：
@@ -171,9 +185,15 @@
 * redis
 * webmagic
 * swagger-ui
+
+
 # 项目结构
+
 ## 目录结构
+
+
 ```
+
 ├── common-utils    公共工具类
 ├── eureka-server   服务注册发现中心，用于做多个worker集线管理
 ├── story-admin    后台管理界面，管理抓取规则等功能
@@ -181,6 +201,7 @@
 ├── story-dao    数据访问层
 └── story-frontend  前端访问层，主要用于小说内容访问层
 └── story-worker  小说抓取器，有关爬虫相关的操作均由worker去操作
+
 ```
 ## 系统架构
 
