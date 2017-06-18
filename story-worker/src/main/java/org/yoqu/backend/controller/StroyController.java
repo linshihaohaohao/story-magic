@@ -50,11 +50,22 @@ public class StroyController {
         return ok(storyPipeline.getResult());
     }
 
-    @GetMapping("chapter")
-    public ResponseMessage chapter(@RequestParam("url")String url){
+    @PostMapping("chapter")
+    public ResponseMessage chapter(@RequestParam("url")String url,@RequestBody StoryRulePo storyRulePo){
         Request request = new Request();
         request.setUrl(url);
-        request.putExtra("type","chapters");
+        request.putExtra("storyRulePo",storyRulePo);
+        request.putExtra("isChapterList","false");
+        spiderService.execute(request);
+        return ok(storyPipeline.getResult());
+    }
+
+
+    @PostMapping("content")
+    ResponseMessage content(@RequestParam("url") String url, @RequestBody StoryRulePo storyRulePo){
+        Request request = new Request();
+        request.setUrl(url);
+        request.putExtra("storyRulePo",storyRulePo);
         spiderService.execute(request);
         return ok(storyPipeline.getResult());
     }

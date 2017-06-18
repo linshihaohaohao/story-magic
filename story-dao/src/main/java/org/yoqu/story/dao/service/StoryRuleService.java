@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface StoryRuleService extends BaseService<StoryRulePo,StoryRuleMapper> {
     List<StoryRulePo> selectByType(String type);
+
+    StoryRulePo selectByResource(String url, String type);
 }

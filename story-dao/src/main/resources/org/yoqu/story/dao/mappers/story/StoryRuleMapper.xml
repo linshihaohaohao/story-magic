@@ -7,6 +7,7 @@
         <id property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
         <result property="bookName" column="book_name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="bookDescription" column="book_description" javaType="String" jdbcType="VARCHAR"/>
         <result property="authorName" column="author_name" javaType="String" jdbcType="VARCHAR"/>
         <result property="type" column="type" javaType="String" jdbcType="VARCHAR"/>
         <result property="listRule" column="list_rule" javaType="String" jdbcType="VARCHAR"/>

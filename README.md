@@ -19,6 +19,7 @@
 
 # 启动项目
 
+## 启动步骤
  1. 下载项目到本地目录，使用idea导入本项目，并解决依赖问题
  2. 运行eureka-server 中的`EurekaServerApplication`的`main`方法
  3. 修改`story-admin`和`frontend`中的`application-dev.yml`文件中的数据库连接账号和密码
@@ -149,12 +150,15 @@
        }
 ```
 
-
+## API文档
+ 本地能成功跑起项目后，输入localhost:3333/swagger-ui.html查看API文档，文档使用swagger-ui
+ 截图展示：
+![小说接口文档](document/小说接口api文档.png)
 # 程序交流
 
 交流QQ群：**536747201**
 
-# 使用技术栈
+# 使用技术
 
 项目所选用的技术框架以及工具(包括但不限于)：
 * java
@@ -166,7 +170,7 @@
 * mysql
 * redis
 * webmagic
-
+* swagger-ui
 # 项目结构
 ## 目录结构
 ```
@@ -181,3 +185,8 @@
 ## 系统架构
 
 ![小说架构图](document/小说爬虫架构图.png)
+
+
+## 业务逻辑图
+
+![小说阅读流程图](document/小说阅读流程图.png)

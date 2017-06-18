@@ -9,7 +9,44 @@ public class Chapter {
     private String id;
     private String name;
     private Date updateDate;
-    private String readUrl ;
+    private String readUrl;
+    private String hosts;
+    private int status;
+    private Long wordCount;
+
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getHosts() {
+        return hosts;
+    }
+
+    public void setHosts(String hosts) {
+        this.hosts = hosts;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Long getWordCount() {
+        return wordCount;
+    }
+
+    public void setWordCount(Long wordCount) {
+        this.wordCount = wordCount;
+    }
 
     public String getId() {
         return id;

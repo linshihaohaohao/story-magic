@@ -1,10 +1,13 @@
 package org.yoqu.backend.engine;
 
 import org.apache.http.client.utils.DateUtils;
+import org.assertj.core.util.DateUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.yoqu.common.entity.Chapter;
 import org.yoqu.common.entity.Story;
+import org.yoqu.common.entity.StoryResource;
+import org.yoqu.common.entity.StoryResourceContent;
 import org.yoqu.common.entity.rule.StoryRulePo;
 import org.yoqu.common.enums.DragRuleTypeEnum;
 import org.yoqu.common.utils.ContentStringUtils;
@@ -34,13 +37,13 @@ public class SoduEngineProcessor implements PageProcessor {
         String type = storyRulePo.getType();
         if (type != null) {
             if (type.equals("search")) {
-                searchRule(page,storyRulePo);
+                searchRule(page, storyRulePo);
             } else if (type.equals("repository")) {
-                bookRepositoryRule(page, request,storyRulePo);
-            } else if (type.equals("chapters")) {
-                chapterRule(page, request);
+                bookRepositoryRule(page, request, storyRulePo);
+            } else if (type.equals("chapter")) {
+                chapterRule(page, request,storyRulePo);
             } else if (type.equals("content")) {
-                contentRule(page, request);
+                contentRule(page, request,storyRulePo);
             }
         } else {
             page.putField("result", false);
@@ -48,25 +51,15 @@ public class SoduEngineProcessor implements PageProcessor {
     }
 
 
-    private void contentRule(Page page, Request request) {
-        String contentRule = (String) request.getExtra("contentRule");
-        String ruleType = (String) request.getExtra("ruleType");
-        String content = "";
-        //判断操作类型
-        if (ruleType.equals(DragRuleTypeEnum.XPATH.getValue())) {
-            content = page.getHtml().xpath(contentRule).toString();
-        } else if (ruleType.equals(DragRuleTypeEnum.JQUERY.getValue())) {
-            content = page.getHtml().$(contentRule).toString();
-        } else if (ruleType.equals(DragRuleTypeEnum.CSS.getValue())) {
-            content = page.getHtml().css(contentRule).toString();
-        } else if (ruleType.equals(DragRuleTypeEnum.REGEX.getValue())) {
-            content = page.getHtml().regex(contentRule).toString();
-        } else {
-            content = page.getHtml().xpath(contentRule).toString();
-        }
-        //最后处理一下获取到的内容的html标签。
+    private void contentRule(Page page, Request request,StoryRulePo storyRulePo) {
+        String content = page.getHtml().xpath(storyRulePo.getStoryContentRulePo().getContentRule()).toString();
+        String chapterName = page.getHtml().xpath(storyRulePo.getChapterName()).toString();
         content = ContentStringUtils.filterDivTag(content);
-        page.putField("content", content);
+        Chapter chapter = new Chapter();
+        chapter.setName(chapterName);
+        chapter.setWordCount(Long.valueOf(content.length()));
+        chapter.setContent(content);
+        page.putField("chapter", chapter);
     }
 
     /**
@@ -75,27 +68,38 @@ public class SoduEngineProcessor implements PageProcessor {
      * @param page
      * @param request
      */
-    private void chapterRule(Page page, Request request) {
-        List<Selectable> trLists = page.getHtml().xpath("/html/body/table[4]/tbody/tr/td[1]/table/tbody/tr").nodes();
-        List<Chapter> chapters = new ArrayList<>();
-        //循环每个tr
-        for (Selectable tr : trLists) {
-            List<Selectable> tdList = tr.xpath("//td").nodes();
-            //循环每个章节
-            for (Selectable item : tdList) {
+    private void chapterRule(Page page, Request request,StoryRulePo storyRulePo) {
+        if(request.getExtra("isChapterList").equals("true")){
+            String bookName = page.getHtml().xpath(storyRulePo.getBookName()).toString();
+            String authorName = page.getHtml().xpath(storyRulePo.getAuthorName()).toString();
+            String imgUrl = page.getHtml().xpath(storyRulePo.getAlbumUrl()).toString();
+            String bookDescription = page.getHtml().xpath(storyRulePo.getBookDescription()).toString();
+            String lastUpdateDate = page.getHtml().xpath(storyRulePo.getLastUpdateRule()).toString();
+            List<Selectable> chapterListTable = page.getHtml().xpath(storyRulePo.getListRule()).nodes();
+            Story story = new Story();
+            story.setName(bookName);
+            story.setAuthor(authorName);
+            story.setBookUrl(request.getUrl());
+            story.setAlbumUrl(imgUrl);
+            story.setLastUpdateDate(DateUtil.parse(lastUpdateDate));
+            story.setDescription(bookDescription);
+            List<Chapter> chapters = new ArrayList<>();
+            for (Selectable s:chapterListTable) {
+                String url = s.xpath(storyRulePo.getUrlRule()).links().toString();
+                String chapterName = s.xpath(storyRulePo.getChapterName()).toString();
                 Chapter chapter = new Chapter();
-                String url = item.links().toString();
-                String name = item.xpath("//a/text()").toString();
-                //如果没有取到名字直接诶跳过即可
-                if (StringUtils.isEmpty(name)) {
-                    continue;
-                }
-                chapter.setName(name);
+                chapter.setName(chapterName);
                 chapter.setReadUrl(url);
                 chapters.add(chapter);
             }
+            story.setChapters(chapters);
+            page.putField("book",story);
+        }else{
+            request.putExtra("isChapterList","true");
+            String chapterUrl = page.getHtml().xpath(storyRulePo.getStoryChapterRulePo().getChapterListPageRule()).links().toString();
+            request.setUrl(chapterUrl);
+            page.addTargetRequest(request);
         }
-        page.putField("chapters", chapters);
     }
 
     /**
@@ -104,25 +108,40 @@ public class SoduEngineProcessor implements PageProcessor {
      * @param page
      * @param request
      */
-    private void bookRepositoryRule(Page page, Request request,StoryRulePo storyRulePo) {
-        List<Selectable> selectableList = page.getHtml().xpath(storyRulePo.getListRule()).nodes();//.xpath("/html/body/div[@class='main-html']").nodes();
-        List<Story> storyList = new ArrayList<>();
+    private void bookRepositoryRule(Page page, Request request, StoryRulePo storyRulePo) {
+        List<Selectable> selectableList = page.getHtml().xpath(storyRulePo.getListRule()).nodes();
+        StoryResource storyResource = new StoryResource();
+        List<StoryResourceContent> resourceContents = new ArrayList<>();
+        boolean isInitflag = false;
         for (Selectable s : selectableList) {
-            String chapterName = s.xpath(storyRulePo.getChapterName()).toString();//s.xpath("//div/div[1]/a/text()").toString();
-            String bookUrl = s.xpath(storyRulePo.getUrlRule()).links().toString();//s.xpath("//div/div[1]").links().toString();
-            String resourceSite = s.xpath(storyRulePo.getResourceSiteRule()).toString();//s.xpath("div/div[2]/a/text()").toString();
-            String resourceSiteUrl = s.xpath(storyRulePo.getResourceSiteUrlRule()).toString();//s.xpath("div/div[2]/a").links().toString();
-            String lastDate = s.xpath(storyRulePo.getLastUpdateRule()).toString();//s.xpath("//div/div[3]/text()").toString();
-            Story story = new Story();
-            story.setBookUrl(bookUrl);
-            story.setResourceSite(resourceSite);
-            story.setResourceSiteUrl(resourceSiteUrl);
-            story.setNewChapter(chapterName);
-            story.setName(request.getExtra("bookName").toString());
-            story.setLastUpdateDate(DateUtils.parseDate(lastDate));
-            storyList.add(story);
+            String chapterName = s.xpath(storyRulePo.getChapterName()).toString();
+            String bookUrl = s.xpath(storyRulePo.getUrlRule()).links().toString();
+            String resourceSite = s.xpath(storyRulePo.getResourceSiteRule()).toString();
+            bookUrl=bookUrl.substring(bookUrl.lastIndexOf("http"));
+            String lastDate = s.xpath(storyRulePo.getLastUpdateRule()).toString();
+            //默认取第一个为默认源
+            if (!isInitflag) {
+                Chapter chapter = new Chapter();
+                chapter.setReadUrl(bookUrl);
+                chapter.setName(chapterName);
+                chapter.setStatus(1);
+                chapter.setUpdateDate(DateUtils.parseDate(lastDate));
+                storyResource.setLastChapter(chapter);
+                isInitflag = true;
+                storyResource.setUrl(bookUrl);
+                storyResource.setBookName(request.getExtra("bookName").toString());
+                storyResource.setHost(resourceSite);
+            } else {
+                StoryResourceContent storyResourceContent = new StoryResourceContent();
+                storyResourceContent.setHost(resourceSite);
+                storyResourceContent.setUrl(bookUrl);
+                storyResourceContent.setBookName(request.getExtra("bookName").toString());
+                storyResourceContent.setLastChapterName(chapterName);
+                resourceContents.add(storyResourceContent);
+            }
         }
-        page.putField("stories", storyList);
+        storyResource.setStoryResourceContents(resourceContents);
+        page.putField("stories", storyResource);
     }
 
     /**
@@ -130,7 +149,7 @@ public class SoduEngineProcessor implements PageProcessor {
      *
      * @param page
      */
-    private void searchRule(Page page,StoryRulePo storyRulePo) {
+    private void searchRule(Page page, StoryRulePo storyRulePo) {
         List<Selectable> stories = page.getHtml().xpath(storyRulePo.getListRule()).nodes();//"/html/body/div[@class='main-html']").nodes();
         List<Story> storyList = new ArrayList<>();
         for (Selectable s : stories) {
@@ -143,6 +162,7 @@ public class SoduEngineProcessor implements PageProcessor {
             story.setBookUrl(url);
             storyList.add(story);
         }
+
         page.putField("stories", storyList);
     }
 

@@ -24,69 +24,89 @@ public class StoryRulePo extends BaseRulePo {
     @NotEmpty
     private String bookName;
 
+    private String bookDescription;
     /**
      * 作者名字规则
      */
     @NotEmpty
     private String authorName;
-
     /**
      * 类型
      */
     @NotEmpty
     private String type;
-
     /**
      * 列表规则
      */
     private String listRule;
-
     /**
      * 章节名字规则
      */
     private String chapterName;
-
     /**
      * 页面url
      */
     @NotEmpty
     private String url;
-
     /**
      * 详情规则
      */
     private String urlRule;
-
     /**
      * 资源网站名称规则
      */
     private String resourceSiteRule;
-
     /**
      * 资源网站Url规则
      */
     private String resourceSiteUrlRule;
-
     /**
      * 最后更新时间获取规则
      */
     private String lastUpdateRule;
-
     /**
      * 规则类型
      */
     private DragRuleTypeEnum ruleType;
-
     /**
      * 封面
      */
     private String albumUrl;
+    /**
+     * 小说章节规则外链字段实体
+     */
+    private StoryChapterRulePo storyChapterRulePo;
 
+    private StoryContentRulePo storyContentRulePo;
     /**
      * Site 表ID
      */
     @NotEmpty
     private String storySiteRuleId;
+
+    public StoryContentRulePo getStoryContentRulePo() {
+        return storyContentRulePo;
+    }
+
+    public void setStoryContentRulePo(StoryContentRulePo storyContentRulePo) {
+        this.storyContentRulePo = storyContentRulePo;
+    }
+
+    public String getBookDescription() {
+        return bookDescription;
+    }
+
+    public void setBookDescription(String bookDescription) {
+        this.bookDescription = bookDescription;
+    }
+
+    public StoryChapterRulePo getStoryChapterRulePo() {
+        return storyChapterRulePo;
+    }
+
+    public void setStoryChapterRulePo(StoryChapterRulePo storyChapterRulePo) {
+        this.storyChapterRulePo = storyChapterRulePo;
+    }
 
     public String getLastUpdateRule() {
         return lastUpdateRule;
@@ -121,9 +141,9 @@ public class StoryRulePo extends BaseRulePo {
     }
 
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -202,7 +222,7 @@ public class StoryRulePo extends BaseRulePo {
     }
 
 
-	public interface Property extends GenericPo.Property{
+    public interface Property extends GenericPo.Property {
 
         String name = "name";
 
@@ -218,11 +238,11 @@ public class StoryRulePo extends BaseRulePo {
 
         String url = "url";
 
-		String ruleType = "ruleType";
+        String ruleType = "ruleType";
 
-		String albumUrl = "albumUrl";
+        String albumUrl = "albumUrl";
 
-		String urlRule = "urlRule";
+        String urlRule = "urlRule";
 
         String resourceSiteRule = "resourceSiteRule";
 
@@ -233,6 +253,6 @@ public class StoryRulePo extends BaseRulePo {
         String storySiteRuleId = "storySiteRuleId";
 
 
-	}
+    }
 
 }
