@@ -54,23 +54,6 @@ function renderAction(e){
     return createActionButton("删除","removeNode("+e.record._id+")","icon-remove");
 }
 
-function ondrop(e) {
-    var dragNode = e.dragNode;
-    var dropNode = e.dropNode;
-    var dragAction = e.dragAction;
-    var index = dragNode.sortIndex;
-    var pNode;
-    if ("before" == dragAction || "after" == dragAction) {
-        dropNode.sortIndex = dragNode.sortIndex;
-        pNode = tree.getParentNode(dragNode);
-    }
-    if ("add" == dragAction) {
-        pNode = dropNode;
-    }
-    reSortModule(pNode);
-    tree.selectNode(dragNode);
-}
-
 
 function save() {
     var form = new mini.Form("#data-form");
@@ -82,6 +65,7 @@ function save() {
             return;
         }
 
+        //如果使用原有miniui的对象会自带_id等表格行列属性，如不删除会导致上传至controller层时替换id的至导致server无法获取id时重复保存。
     var pushRoles = [];
     $(m_option).each(function (i, e) {
         var data = deepCopy(e);
@@ -94,24 +78,11 @@ function save() {
     var func = Request.post;
     var box = mini.loading("提交中...", "");
 
-    // $(m_option).each(function (i, e) {
-    //     if( undefined != e.id && null != e.id ){
-    //         $(tableDate).each(function (j, f) {
-    //             if(e.id == f.id){
-    //                 var data = getSourceData(f,e);
-    //                 pushRoles.push(data);
-    //             }
-    //         });
-    //     }else {
-    //         pushRoles.push(e);
-    //     }
-    // });
 
     func("api/site/story/save", data, function (e) {
         mini.hideMessageBox(box);
+        pageData = data;
         if (e.success) {
-            // if (undefined == storySiteId || null == storySiteId || "" == storySiteId)storySiteId = e.data;
-            pageData = {};
             showTips("保存成功");
             setTimeout(function () {
                 if(storySiteId == "")closeWindow('back');
@@ -119,17 +90,6 @@ function save() {
         } else {
             mini.alert(e.message);
         }
-
-        // //提交前删除无用的信息
-        // $(m_option).each(function (i, e) {
-        //     var tempId = e._id;
-        //     delete e._id;
-        //     storyRulePos.push(e);
-        //     // delete e._level;
-        //     // delete e._pid;
-        //     // delete e._uid;
-        //     e._id = tempId;
-        // });
     });
 }
 function getSourceData(sourceData,newData) {
@@ -155,7 +115,8 @@ function getSourceData(sourceData,newData) {
 var deepCopy= function(source) {
     var result={};
     for (var key in source) {
-        result[key] = typeof source[key]==='object'? deepCopy(source[key]): source[key];
+
+        result[key] = typeof source[key]==='String'? deepCopy(source[key]): source[key];
     }
     return result;
 }

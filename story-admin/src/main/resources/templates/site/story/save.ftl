@@ -92,7 +92,7 @@
                 <input property="editor" class="mini-textbox"/>
             </div>
             <div field="ruleType" width="60" align="center" headerAlign="center">规则类型
-                <input property="editor" class="mini-textbox"/>
+                <input property="editor" class="mini-combobox" url="<@global.api 'api/site/storyRule/ruleType'/>"  valueField="data" textField="data" showNullItem="false"/>
             </div>
             <div field="albumUrl" width="60" align="center" headerAlign="center">封面
                 <input property="editor" class="mini-textbox"/>

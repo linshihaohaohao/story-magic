@@ -47,12 +47,12 @@ public class StoryRestController extends GenericController<StorySiteRulePo, Stri
     public ResponseMessage save(@RequestBody StorySiteRulePo object) {
         String poId = storySiteRuleService.save(object);
         List<String> saveRuleIDs = new ArrayList<>();
-        if(null != object.getStoryRulePos()){
-            for (StoryRulePo storyRulePo : object.getStoryRulePos()){
-                if(null == storyRulePo.getStorySiteRuleId()){
+        if (null != object.getStoryRulePos()) {
+            for (StoryRulePo storyRulePo : object.getStoryRulePos()) {
+                if (null == storyRulePo.getStorySiteRuleId()) {
                     storyRulePo.setStorySiteRuleId(poId);
                 }
-               String ruleId = storyRuleService.save(storyRulePo);
+                String ruleId = storyRuleService.save(storyRulePo);
                 saveRuleIDs.add(ruleId);
             }
         }
@@ -72,8 +72,7 @@ public class StoryRestController extends GenericController<StorySiteRulePo, Stri
 //        }
 
 
-        return ResponseMessage.ok(poId==null?0:1);
+        return ResponseMessage.ok(poId == null ? 0 : 1);
     }
-
 
 }

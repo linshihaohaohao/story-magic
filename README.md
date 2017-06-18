@@ -1,6 +1,6 @@
 # 
 
-`author` : [yoqu](http://www.yoqu.org)
+`author` : [yoqu](http://www.yoqu.org) [Zack](https://github.com/uSERken)
 
 `createTime` : 2017年06月02 下午4:47
 
