@@ -21,4 +21,11 @@ public class StoryRuleServiceImpl extends BaseServiceImpl<StoryRulePo,StoryRuleM
         return getMapper().select(queryParam);
     }
 
+    @Override
+    public List<StoryRulePo>selectBySiteId(String id){
+        QueryParam queryParam = new QueryParam();
+        queryParam.and("storySiteRuleId","=",id);
+        return getMapper().select(queryParam);
+    }
+
 }
