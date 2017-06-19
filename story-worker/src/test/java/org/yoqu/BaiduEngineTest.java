@@ -2,10 +2,12 @@ package org.yoqu;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.yoqu.common.enums.DragRuleTypeEnum;
 import org.yoqu.backend.engine.SoduEngineProcessor;
+import org.yoqu.common.entity.rule.StoryRulePo;
+import org.yoqu.common.enums.DragRuleTypeEnum;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.pipeline.ConsolePipeline;
@@ -16,6 +18,7 @@ import us.codecraft.webmagic.pipeline.ConsolePipeline;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@SpringBootApplication
 public class BaiduEngineTest {
 
     /**
@@ -27,6 +30,14 @@ public class BaiduEngineTest {
         request.putExtra("type","search");
         request.setUrl("http://www.sodu.cc/result.html?searchstr=斗罗大陆");
         Spider.create(new SoduEngineProcessor()).addPipeline(new ConsolePipeline()).addRequest(request).thread(5).run();
+    }
+
+    @Test
+    public void testPo(){
+        StoryRulePo s = new StoryRulePo();
+        s.setBookName("asiuq");
+
+        System.out.println(s.getProperty("bookName").toString());
     }
 
     /**

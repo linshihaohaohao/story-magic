@@ -35,6 +35,7 @@ public class SpiderService {
     @PostConstruct
     public void init(){
         spider = new Spider(soduEngineProcessor);
+
         spider.thread(spiderProperties.getThread());
         spider.addPipeline(storyPipeline);
     }
@@ -46,8 +47,9 @@ public class SpiderService {
             isRunning=true;
             spider.run();
             isRunning=false;
-        }
+        }else{
 
+        }
     }
 
 }
