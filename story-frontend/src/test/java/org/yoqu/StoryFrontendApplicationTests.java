@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.yoqu.common.entity.rule.StoryRulePo;
+import org.yoqu.common.enums.StoryTypeEnum;
 import org.yoqu.story.dao.service.StoryRuleService;
 
 @RunWith(SpringRunner.class)
@@ -21,7 +22,7 @@ public class StoryFrontendApplicationTests {
 	public void contextLoads() {
 		StoryRulePo storyRulePo = new StoryRulePo();
 		storyRulePo.setId(GenericPo.createUID());
-		storyRulePo.setType("1");
+		storyRulePo.setType(StoryTypeEnum.search);
 		storyRulePo.setBookName("Hello");
 		storyRuleService.insert(storyRulePo);
 

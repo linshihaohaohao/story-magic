@@ -9,11 +9,9 @@
         <result property="bookName" column="book_name" javaType="String" jdbcType="VARCHAR"/>
         <result property="bookDescription" column="book_description" javaType="String" jdbcType="VARCHAR"/>
         <result property="authorName" column="author_name" javaType="String" jdbcType="VARCHAR"/>
-        <result property="type" column="type" javaType="String" jdbcType="VARCHAR"/>
         <result property="listRule" column="list_rule" javaType="String" jdbcType="VARCHAR"/>
         <result property="chapterName" column="chapter_name" javaType="String" jdbcType="VARCHAR"/>
         <result property="url" column="url" javaType="String" jdbcType="VARCHAR"/>
-
         <result property="albumUrl" column="album_url" javaType="String" jdbcType="VARCHAR"/>
         <result property="storySiteRuleId" column="story_site_rule_id" javaType="String" jdbcType="VARCHAR"/>
         <result property="urlRule" column="url_rule" javaType="String" jdbcType="VARCHAR"/>
@@ -23,6 +21,7 @@
 
         <!--<result property="ruleType" column="rule_type" javaType="String" jdbcType="VARCHAR"/>-->
         <!-- ENUM -->
+        <result property="type" column="type" javaType="org.yoqu.common.enums.StoryTypeEnum" jdbcType="VARCHAR" typeHandler="org.yoqu.story.dao.handler.EnumTypeHandler"/>
         <result property="ruleType" column="rule_type" javaType="org.yoqu.common.enums.DragRuleTypeEnum" jdbcType="VARCHAR" typeHandler="org.yoqu.story.dao.handler.EnumTypeHandler"/>
 
         <!-- 通用 -->

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.yoqu.common.entity.rule.StoryRulePo;
 import org.yoqu.common.enums.DragRuleTypeEnum;
+import org.yoqu.common.enums.StoryTypeEnum;
+import org.yoqu.story.dao.handler.util.CodeEnumUtil;
 import org.yoqu.story.dao.service.StoryRuleService;
 
 import java.util.*;
@@ -37,12 +39,21 @@ public class StoryRuleRestController extends GenericController<StoryRulePo, Stri
     )
     @AccessLogger("获取")
     public List<Map<String,String>> getStoryRuleType() {
-        List<Map<String,String>> returnData = new ArrayList<>();
-        for(DragRuleTypeEnum typeEnum : DragRuleTypeEnum.values()){
-            Map<String,String> typeMap = new HashMap<>();
-            typeMap.put("data",typeEnum.getValue());
-            returnData.add(typeMap);
-        }
-        return returnData;
+//        List<Map<String,String>> returnData = new ArrayList<>();
+//        for(DragRuleTypeEnum typeEnum : DragRuleTypeEnum.values()){
+//            Map<String,String> typeMap = new HashMap<>();
+//            typeMap.put("data",typeEnum.getValue());
+//            returnData.add(typeMap);
+//        }
+        return CodeEnumUtil.getListMapEnum(DragRuleTypeEnum.class,"data");
+    }
+
+    @RequestMapping(
+            value = {"storyType"},
+            method = {RequestMethod.GET}
+    )
+    @AccessLogger("获取")
+    public List<Map<String,String>> getStoryType() {
+        return CodeEnumUtil.getListMapEnum(StoryTypeEnum.class,"data");
     }
 }

@@ -68,7 +68,7 @@
                 <input property="editor" class="mini-textbox"/>
             </div>
             <div field="type" width="60" align="center" headerAlign="center">类型
-                <input property="editor" class="mini-textbox"/>
+                <input property="editor" class="mini-combobox" url="<@global.api 'api/site/storyRule/storyType'/>"  valueField="data" textField="data" showNullItem="false"/>
             </div>
             <div field="listRule" width="60" align="center" headerAlign="center">列表规则
                 <input property="editor" class="mini-textbox"/>

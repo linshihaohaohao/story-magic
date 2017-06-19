@@ -3,6 +3,7 @@ package org.yoqu.common.entity.rule;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hsweb.web.bean.po.GenericPo;
 import org.yoqu.common.enums.DragRuleTypeEnum;
+import org.yoqu.common.enums.StoryTypeEnum;
 
 
 /**
@@ -34,7 +35,7 @@ public class StoryRulePo extends BaseRulePo {
      * 类型
      */
     @NotEmpty
-    private String type;
+    private StoryTypeEnum type;
     /**
      * 列表规则
      */
@@ -165,14 +166,13 @@ public class StoryRulePo extends BaseRulePo {
         this.authorName = authorName;
     }
 
-    public String getType() {
+    public StoryTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(StoryTypeEnum type) {
         this.type = type;
     }
-
     public String getListRule() {
         return listRule;
     }

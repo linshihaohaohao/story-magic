@@ -10,6 +10,7 @@ import org.yoqu.common.entity.Story;
 import org.yoqu.common.entity.StoryResource;
 import org.yoqu.common.entity.StoryResourceContent;
 import org.yoqu.common.entity.rule.StoryRulePo;
+import org.yoqu.common.enums.StoryTypeEnum;
 import org.yoqu.common.utils.ContentStringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -31,15 +32,15 @@ public class SoduEngineProcessor extends CommonProcessor {
     public void process(Page page) {
         Request request = page.getRequest();
         StoryRulePo storyRulePo = (StoryRulePo) request.getExtra("storyRulePo");
-        String type = storyRulePo.getType();
+        StoryTypeEnum type = storyRulePo.getType();
         if (type != null) {
-            if (type.equals("search")) {
+            if (type.value().equals("search")) {
                 searchRule(page, storyRulePo);
-            } else if (type.equals("repository")) {
+            } else if (type.value().equals("repository")) {
                 bookRepositoryRule(page, request, storyRulePo);
-            } else if (type.equals("chapter")) {
+            } else if (type.value().equals("chapter")) {
                 chapterRule(page, request,storyRulePo);
-            } else if (type.equals("content")) {
+            } else if (type.value().equals("content")) {
                 contentRule(page, request,storyRulePo);
             }
         } else {
