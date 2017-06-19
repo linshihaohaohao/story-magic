@@ -15,7 +15,7 @@ public class CodeEnumUtil {
     public static <E extends Enum<?> & CodeBaseEnum> E codeOf(Class<E> enumClass, String value) {
         E[] enumConstants = enumClass.getEnumConstants();
         for (E e : enumConstants) {
-            if (value.equals(e)){
+            if (value.equals(e.value())){
                 return e;
             }
         }
