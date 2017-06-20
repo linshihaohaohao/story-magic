@@ -45,8 +45,8 @@ public class StoryRestController extends GenericController<StorySiteRulePo, Stri
     )
     @AccessLogger("修改")
     public ResponseMessage save(@RequestBody StorySiteRulePo object) {
-        String poId = storySiteRuleService.save(object);
         List<String> saveRuleIDs = new ArrayList<>();
+        String poId = storySiteRuleService.save(object);
         if (null != object.getStoryRulePos()) {
             for (StoryRulePo storyRulePo : object.getStoryRulePos()) {
                 if (null == storyRulePo.getStorySiteRuleId()) {
@@ -55,6 +55,10 @@ public class StoryRestController extends GenericController<StorySiteRulePo, Stri
                 String ruleId = storyRuleService.save(storyRulePo);
                 saveRuleIDs.add(ruleId);
             }
+        }
+        //新建时若保存失败,则删除已存的site
+        if( null == object.getId() && (saveRuleIDs.size() < object.getStoryRulePos().size())){
+            storySiteRuleService.delete(poId);
         }
         //
 //        if(!CollectionUtils.isEmpty(saveRuleIDs)){

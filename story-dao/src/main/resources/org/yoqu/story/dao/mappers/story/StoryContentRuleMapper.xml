@@ -7,7 +7,8 @@
         <id property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
         <result property="storyRuleId" column="story_rule_id" javaType="String" jdbcType="VARCHAR"/>
-        <result property="ContentRule" column="content_rule" javaType="String" jdbcType="VARCHAR"/>
+        <result property="contentRule" column="content_rule" javaType="String" jdbcType="VARCHAR"/>
+
         <!-- 通用 -->
         <result property="createBy" column="create_by" javaType="String" jdbcType="VARCHAR"/>
         <result property="updateBy" column="update_by" javaType="String" jdbcType="VARCHAR"/>
@@ -37,11 +38,11 @@
     </update>
 
     <select id="selectByPk" parameterType="string" resultMap="StoryContentRuleResultMap">
-        select * from story_story_Content_rule where id=#{id}
+        select * from story_story_content_rule where id=#{id}
     </select>
 
-    <select id="selectByStorySiteRuleId" parameterType="string" resultMap="StoryContentRuleResultMap">
-        select * from story_story_content_rule where story_site_rule_id=#{story_site_rule_id} order by update_date
+    <select id="selectByStoryRuleId" parameterType="string" resultMap="StoryContentRuleResultMap">
+        select * from story_story_content_rule where story_rule_id=#{story_rule_id} order by update_date
     </select>
 
     <select id="select" parameterType="org.hsweb.web.bean.common.QueryParam" resultMap="StoryContentRuleResultMap">

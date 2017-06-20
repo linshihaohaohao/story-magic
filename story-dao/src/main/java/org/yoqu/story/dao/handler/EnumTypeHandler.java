@@ -46,7 +46,6 @@ public class EnumTypeHandler <E extends Enum<?> & CodeBaseEnum> extends BaseType
 
     @Override
     public E getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        System.out.println(CodeEnumUtil.codeOf(clazz, rs.getString(columnName)));
         return CodeEnumUtil.codeOf(clazz, rs.getString(columnName));
     }
 

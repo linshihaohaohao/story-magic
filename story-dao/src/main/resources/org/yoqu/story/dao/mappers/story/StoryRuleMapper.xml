@@ -24,12 +24,28 @@
         <result property="type" column="type" javaType="org.yoqu.common.enums.StoryTypeEnum" jdbcType="VARCHAR" typeHandler="org.yoqu.story.dao.handler.EnumTypeHandler"/>
         <result property="ruleType" column="rule_type" javaType="org.yoqu.common.enums.DragRuleTypeEnum" jdbcType="VARCHAR" typeHandler="org.yoqu.story.dao.handler.EnumTypeHandler"/>
 
+        <!--<collection property="storyContentRulePo" column="story_content_rule" jdbcType="VARCHAR" ofType="org.yoqu.common.entity.rule.StoryRulePo"-->
+                    <!--select="org.yoqu.story.dao.mappers.story.StoryContentRuleMapper.selectByStoryRuleId"></collection>-->
+
         <!-- 通用 -->
         <result property="createBy" column="create_by" javaType="String" jdbcType="VARCHAR"/>
         <result property="updateBy" column="update_by" javaType="String" jdbcType="VARCHAR"/>
         <result property="createDate" column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
         <result property="updateDate" column="update_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
         <result property="deleteFlag" column="delete_flag" javaType="Boolean" jdbcType="BOOLEAN"/>
+
+        <!-- association 必须放在 result后面  -->
+        <association property="storyContentRulePo" javaType="org.yoqu.common.entity.rule.StoryContentRulePo" >
+            <id property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
+            <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
+            <result property="storyRuleId" column="story_rule_id" javaType="String" jdbcType="VARCHAR"/>
+            <result property="contentRule" column="content_rule" javaType="String" jdbcType="VARCHAR"/>
+            <result property="createBy" column="create_by" javaType="String" jdbcType="VARCHAR"/>
+            <result property="updateBy" column="update_by" javaType="String" jdbcType="VARCHAR"/>
+            <result property="createDate" column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <result property="updateDate" column="update_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+            <result property="deleteFlag" column="delete_flag" javaType="Boolean" jdbcType="BOOLEAN"/>
+        </association>
     </resultMap>
 
     <!--用于动态生成sql所需的配置-->
@@ -69,5 +85,9 @@
     <select id="total" parameterType="org.hsweb.web.bean.common.QueryParam" resultType="int">
         <include refid="config"/>
         <include refid="BasicMapper.buildTotalSql"/>
+    </select>
+
+    <select id="selectStoryContentByStoryRuleId" parameterType="org.yoqu.common.entity.rule.StoryContentRulePo" resultMap="StoryRuleResultMap">
+        select * from story_story_content_rule cr left join story_story_rule sr on cr.story_rule_id = sr.id where story_rule_id=#{story_rule_id} order by update_date
     </select>
 </mapper>

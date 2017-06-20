@@ -49,7 +49,7 @@
 <div id="story-form" style="margin: auto;width:80%;">
     <br/>
     <h2 align="center">编辑网站规则</h2>
-    <a class="mini-button" iconCls="icon-add" onclick="mini.get('m_option_table').addNode({})" plain="true"></a>
+    <a class="mini-button" iconCls="icon-add" onclick="addNode()" plain="true"></a>
     <div id="m_option_table" class="mini-treegrid"
          style="margin: auto;width:100%;height:300px;border: 0px;"
          showPager="false" allowCellEdit="true" allowDrop="true" resultAsTree="false"
@@ -97,6 +97,12 @@
             <div field="albumUrl" width="60" align="center" headerAlign="center">封面
                 <input property="editor" class="mini-textbox"/>
             </div>
+                <div field="" renderer="rendererForOther"  width="60" align="center" headerAlign="center" >内容
+                    <#--<input property="editor" onbuttonclick="onbuttonedit" class="mini-buttonedit" readonly/>-->
+                </div>
+                <div field=""  renderer=""  width="60" align="center" headerAlign="center">章节
+
+                </div>
             <div name="action" renderer="renderAction" align="center" headerAlign="center" width="50">操作
             </div>
         </div>

@@ -1,9 +1,10 @@
 package org.yoqu.common.entity.rule;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.hsweb.web.bean.po.GenericPo;
 import org.yoqu.common.enums.DragRuleTypeEnum;
 import org.yoqu.common.enums.StoryTypeEnum;
+
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -16,25 +17,25 @@ public class StoryRulePo extends BaseRulePo {
     /**
      * 规则名称
      */
-    @NotEmpty
+    @NotNull
     private String name;
 
     /**
      * 书籍名字规则
      */
-    @NotEmpty
+    @NotNull
     private String bookName;
 
     private String bookDescription;
     /**
      * 作者名字规则
      */
-    @NotEmpty
+    @NotNull
     private String authorName;
     /**
      * 类型
      */
-    @NotEmpty
+    @NotNull
     private StoryTypeEnum type;
     /**
      * 列表规则
@@ -47,7 +48,7 @@ public class StoryRulePo extends BaseRulePo {
     /**
      * 页面url
      */
-    @NotEmpty
+    @NotNull
     private String url;
     /**
      * 详情规则
@@ -68,6 +69,7 @@ public class StoryRulePo extends BaseRulePo {
     /**
      * 规则类型
      */
+    @NotNull
     private DragRuleTypeEnum ruleType;
     /**
      * 封面
@@ -82,7 +84,7 @@ public class StoryRulePo extends BaseRulePo {
     /**
      * Site 表ID
      */
-    @NotEmpty
+    @NotNull
     private String storySiteRuleId;
 
     public StoryContentRulePo getStoryContentRulePo() {

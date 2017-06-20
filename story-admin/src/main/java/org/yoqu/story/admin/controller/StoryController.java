@@ -8,7 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.yoqu.common.entity.rule.StoryChapterRulePo;
+import org.yoqu.common.entity.rule.StoryContentRulePo;
 import org.yoqu.common.entity.rule.StorySiteRulePo;
+import org.yoqu.story.dao.service.StoryChapterRuleService;
+import org.yoqu.story.dao.service.StoryContentRuleService;
 import org.yoqu.story.dao.service.StorySiteRuleService;
 
 /**
@@ -20,6 +24,9 @@ public class StoryController {
 
     @Autowired
     private StorySiteRuleService storySiteRuleService;
+
+    @Autowired
+    private StoryContentRuleService storyContentRuleService;
 
     @RequestMapping(value = {"/", "/list.html"})
     @Authorize
@@ -41,4 +48,19 @@ public class StoryController {
         modelAndView.addObject("param",storySiteRulePo == null?null:storySiteRulePo.getId());
         return modelAndView;
     }
+
+    @RequestMapping(value = {"/content/save.html"})
+    @Authorize
+    public ModelAndView storyContent(@RequestParam(value = "id",required = false) String id ) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("absPath", WebUtil.getBasePath(WebUtil.getHttpServletRequest()));
+        StoryContentRulePo storyContentRulePo = null;
+        if(null != id){
+            storyContentRulePo =  storyContentRuleService.selectByPk(id);
+//            throw new NotFoundException("data is not found!");
+        }
+        modelAndView.addObject("param",storyContentRulePo == null?null:storyContentRulePo.getId());
+        return modelAndView;
+    }
+
 }

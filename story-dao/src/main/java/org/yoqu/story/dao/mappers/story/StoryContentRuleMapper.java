@@ -13,4 +13,5 @@ import org.yoqu.story.dao.mappers.BaseMapper;
  */
 @Mapper
 public interface StoryContentRuleMapper extends BaseMapper<StoryContentRulePo> {
+    StoryContentRulePo selectByStoryRuleId(String storyRuleId);
 }

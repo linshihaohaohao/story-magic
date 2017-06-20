@@ -20,7 +20,7 @@ public class StoryContentRulePo extends BaseRulePo {
     /**
      * 小说内容
      */
-    private String ContentRule;
+    private String contentRule;
 
     public String getName() {
         return name;
@@ -30,13 +30,12 @@ public class StoryContentRulePo extends BaseRulePo {
         this.name = name;
     }
 
-
     public String getContentRule() {
-        return ContentRule;
+        return contentRule;
     }
 
     public void setContentRule(String contentRule) {
-        ContentRule = contentRule;
+        this.contentRule = contentRule;
     }
 
     public String getStoryRuleId() {
@@ -48,10 +47,8 @@ public class StoryContentRulePo extends BaseRulePo {
         this.storyRuleId = storyRuleId;
     }
     public interface Property extends GenericPo.Property{
-
-        String name = "name";
-
         String storyRuleId = "storyRuleId";
-        String chapterRuleListRule = "chapterRuleListRule";
+        String name = "name";
+        String chapterRuleListRule = "contentRule";
     }
 }
