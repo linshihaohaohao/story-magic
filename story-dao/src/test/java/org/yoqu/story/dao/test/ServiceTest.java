@@ -51,8 +51,7 @@ public class ServiceTest {
 //        storyRulePo.setId();
         storyRulePo.setId(GenericPo.createUID());
         storyRulePo.setAuthorName("名称");
-         String id = storyRuleService.insert(storyRulePo);
-         System.out.println(id);
+        storyRuleService.saveOrUpdate(storyRulePo);
     }
 
     @Test
