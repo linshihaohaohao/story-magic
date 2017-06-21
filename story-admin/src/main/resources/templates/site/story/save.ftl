@@ -64,6 +64,9 @@
             <div field="bookName" width="60" align="center" headerAlign="center">书名
                 <input property="editor" class="mini-textbox" name="bookName" id="bookName"/>
             </div>
+                <div field="bookDescription" width="60" align="center" headerAlign="center">简洁
+                    <input property="editor" class="mini-textbox" name="bookDescription" id="bookDescription"/>
+                </div>
             <div field="authorName" width="60" align="center" headerAlign="center">作者
                 <input property="editor" class="mini-textbox"/>
             </div>

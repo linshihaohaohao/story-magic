@@ -26,6 +26,7 @@ public class StoryRulePo extends BaseRulePo {
     @NotNull
     private String bookName;
 
+
     private String bookDescription;
     /**
      * 作者名字规则

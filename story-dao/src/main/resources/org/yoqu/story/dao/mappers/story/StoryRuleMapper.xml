@@ -35,7 +35,7 @@
         <result property="deleteFlag" column="delete_flag" javaType="Boolean" jdbcType="BOOLEAN"/>
 
         <!-- association 必须放在 result后面  -->
-        <association property="storyContentRulePo" javaType="org.yoqu.common.entity.rule.StoryContentRulePo" >
+        <association property="storyContentRulePo" javaType="org.yoqu.common.entity.rule.StoryContentRulePo"  >
             <id property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
             <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
             <result property="storyRuleId" column="story_rule_id" javaType="String" jdbcType="VARCHAR"/>
@@ -87,7 +87,10 @@
         <include refid="BasicMapper.buildTotalSql"/>
     </select>
 
-    <select id="selectStoryContentByStoryRuleId" parameterType="org.yoqu.common.entity.rule.StoryContentRulePo" resultMap="StoryRuleResultMap">
-        select * from story_story_content_rule cr left join story_story_rule sr on cr.story_rule_id = sr.id where story_rule_id=#{story_rule_id} order by update_date
+    <select id="selectStoryContent"  parameterType="org.hsweb.web.bean.common.QueryParam" resultType="org.yoqu.common.entity.rule.StoryContentRulePo" resultMap="StoryRuleResultMap">
+        <!--select * from story_story_content_rule cr left join story_story_rule sr on cr.story_rule_id = sr.id where story_rule_id=#{story_rule_id}-->
+        SELECT scr.* FROM story_story_content_rule scr,story_story_rule srs WHERE scr.story_rule_id = srs.id and src.story_rule_id=#{story_rule_id}
+        <!--SELECT scr.* FROM story_story_content_rule scr,story_story_rule srs WHERE scr.story_rule_id = srs.id-->
+
     </select>
 </mapper>
