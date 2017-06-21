@@ -1,6 +1,6 @@
-# 
+# 分布式小说爬虫说明
 
-`author` : [yoqu](http://www.yoqu.org)
+`author` : [yoqu](http://www.yoqu.org) 、[Zack](https://github.com/uSERken)
 
 `createTime` : 2017年06月02 下午4:47
 
@@ -17,8 +17,20 @@
 
 * 提供一套简易风格界面用于阅读小说
 
+
+# 开发进度
+
+- [x] 后台规则管理
+- [x] eureka-server搭建
+- [x] 小说具体爬取功能开发
+- [ ] 小说入库存储优化
+- [ ] 小说redis缓存功能
+- [ ] 小说前端html界面提供
+- [ ] 前端restful接口基于oath2授权认证开发
+
 # 启动项目
 
+## 启动步骤
  1. 下载项目到本地目录，使用idea导入本项目，并解决依赖问题
  2. 运行eureka-server 中的`EurekaServerApplication`的`main`方法
  3. 修改`story-admin`和`frontend`中的`application-dev.yml`文件中的数据库连接账号和密码
@@ -27,6 +39,8 @@
  6. 启动`story-frontend` 在浏览器输入http://localhost:3333/api/v1/search?name= ***填写搜索的书名***
     例如输入http://localhost:3333/api/v1/search?name=逆鳞
     返回的结果如下：
+
+
 ```json
        {
            "code": 200,
@@ -53,94 +67,6 @@
                        "id": null,
                        "bookUrl": "http://www.sodu.cc/mulu_458710.html",
                        "resourceSiteUrl": null
-                   },
-                   {
-                       "newChapter": "第四十七章 黑夜激斗",
-                       "resourceSite": null,
-                       "chapters": null,
-                       "author": null,
-                       "lastUpdateDate": null,
-                       "name": "秦时明月之逆鳞变",
-                       "id": null,
-                       "bookUrl": "http://www.sodu.cc/mulu_453833.html",
-                       "resourceSiteUrl": null
-                   },
-                   {
-                       "newChapter": "卷 后记",
-                       "resourceSite": null,
-                       "chapters": null,
-                       "author": null,
-                       "lastUpdateDate": null,
-                       "name": "魔剑逆鳞",
-                       "id": null,
-                       "bookUrl": "http://www.sodu.cc/mulu_154964.html",
-                       "resourceSiteUrl": null
-                   },
-                   {
-                       "newChapter": "第七章 永无止尽的战斗【卓雅居全文字秒更】",
-                       "resourceSite": null,
-                       "chapters": null,
-                       "author": null,
-                       "lastUpdateDate": null,
-                       "name": "逆鳞传",
-                       "id": null,
-                       "bookUrl": "http://www.sodu.cc/mulu_259124.html",
-                       "resourceSiteUrl": null
-                   },
-                   {
-                       "newChapter": "【37】林天宇致命屠魔",
-                       "resourceSite": null,
-                       "chapters": null,
-                       "author": null,
-                       "lastUpdateDate": null,
-                       "name": "逆鳞狂龙",
-                       "id": null,
-                       "bookUrl": "http://www.sodu.cc/mulu_454766.html",
-                       "resourceSiteUrl": null
-                   },
-                   {
-                       "newChapter": "第64章 龙九的逆鳞（终章）【卓雅居全文字秒更】",
-                       "resourceSite": null,
-                       "chapters": null,
-                       "author": null,
-                       "lastUpdateDate": null,
-                       "name": "心炎-逆鳞",
-                       "id": null,
-                       "bookUrl": "http://www.sodu.cc/mulu_162633.html",
-                       "resourceSiteUrl": null
-                   },
-                   {
-                       "newChapter": "第三十七章 蒙面人【卓雅居全文字秒更】",
-                       "resourceSite": null,
-                       "chapters": null,
-                       "author": null,
-                       "lastUpdateDate": null,
-                       "name": "逆鳞破天",
-                       "id": null,
-                       "bookUrl": "http://www.sodu.cc/mulu_29131.html",
-                       "resourceSiteUrl": null
-                   },
-                   {
-                       "newChapter": "第七十九章 血漫沙场 沈欢大战方圆阵【卓雅居全文字秒更】",
-                       "resourceSite": null,
-                       "chapters": null,
-                       "author": null,
-                       "lastUpdateDate": null,
-                       "name": "龙之逆鳞",
-                       "id": null,
-                       "bookUrl": "http://www.sodu.cc/mulu_74632.html",
-                       "resourceSiteUrl": null
-                   },
-                   {
-                       "newChapter": "第64节藏书阁【卓雅居全文字秒更】",
-                       "resourceSite": null,
-                       "chapters": null,
-                       "author": null,
-                       "lastUpdateDate": null,
-                       "name": "逆鳞龙女",
-                       "id": null,
-                       "bookUrl": "http://www.sodu.cc/mulu_110140.html",
-                       "resourceSiteUrl": null
                    }
                ]
            },
@@ -149,27 +75,19 @@
        }
 ```
 
+## 更多API文档
+ 本地能成功跑起项目后，输入localhost:3333/swagger-ui.html查看API文档，文档使用swagger-ui
+ 截图展示：
+![小说接口文档](document/小说接口api文档.png)
 
-# 程序交流
-
-交流QQ群：**536747201**
-
-# 使用技术栈
-
-项目所选用的技术框架以及工具(包括但不限于)：
-* java
-* jdk1.8
-* maven
-* spring boot
-* Spring Cloud
-* Spring Cloud Eureka
-* mysql
-* redis
-* webmagic
 
 # 项目结构
+
 ## 目录结构
+
+
 ```
+
 ├── common-utils    公共工具类
 ├── eureka-server   服务注册发现中心，用于做多个worker集线管理
 ├── story-admin    后台管理界面，管理抓取规则等功能
@@ -177,7 +95,33 @@
 ├── story-dao    数据访问层
 └── story-frontend  前端访问层，主要用于小说内容访问层
 └── story-worker  小说抓取器，有关爬虫相关的操作均由worker去操作
+
 ```
 ## 系统架构
 
 ![小说架构图](document/小说爬虫架构图.png)
+
+
+## 业务逻辑图
+
+![小说阅读流程图](document/小说阅读流程图.png)
+
+
+# 程序交流
+
+交流QQ群：**536747201**
+
+# 使用技术
+
+项目所选用的技术框架以及工具(包括但不限于)：
+* Java
+* jdk1.8
+* Maven
+* Spring Boot
+* Spring Cloud
+* Spring Cloud Eureka
+* Mysql
+* Redis
+* WebMagic
+* swagger-ui
+

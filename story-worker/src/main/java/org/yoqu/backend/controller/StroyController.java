@@ -8,8 +8,6 @@ import org.yoqu.common.entity.rule.StoryRulePo;
 import org.yoqu.common.message.ResponseMessage;
 import us.codecraft.webmagic.Request;
 
-import javax.servlet.http.HttpServletRequest;
-
 import static org.yoqu.common.message.ResponseMessage.ok;
 
 /**
@@ -21,9 +19,9 @@ import static org.yoqu.common.message.ResponseMessage.ok;
 @RestController
 @RequestMapping("/book")
 public class StroyController {
-
-    @Autowired
-    private HttpServletRequest request;
+//
+//    @Autowired
+//    private HttpServletRequest request;
 
     @Autowired
     private SpiderService spiderService;
@@ -37,7 +35,7 @@ public class StroyController {
         request.setUrl(storyRulePo.getUrl()+bookName);//"http://www.sodu.cc/result.html?searchstr="+bookName);
         request.putExtra("storyRulePo",storyRulePo);
         spiderService.execute(request);
-        return ok(storyPipeline.getResult());
+        return ok(storyPipeline.getResultData());
     }
 
     @PostMapping("repository")
@@ -47,15 +45,26 @@ public class StroyController {
         request.putExtra("bookName",name);
         request.putExtra("storyRulePo",storyRulePo);
         spiderService.execute(request);
-        return ok(storyPipeline.getResult());
+        return ok(storyPipeline.getResultData());
     }
 
-    @GetMapping("chapter")
-    public ResponseMessage chapter(@RequestParam("url")String url){
+    @PostMapping("chapter")
+    public ResponseMessage chapter(@RequestParam("url")String url,@RequestBody StoryRulePo storyRulePo){
         Request request = new Request();
         request.setUrl(url);
-        request.putExtra("type","chapters");
+        request.putExtra("storyRulePo",storyRulePo);
+        request.putExtra("isChapterList","false");
         spiderService.execute(request);
-        return ok(storyPipeline.getResult());
+        return ok(storyPipeline.getResultData());
+    }
+
+
+    @PostMapping("content")
+    ResponseMessage content(@RequestParam("url") String url, @RequestBody StoryRulePo storyRulePo){
+        Request request = new Request();
+        request.setUrl(url);
+        request.putExtra("storyRulePo",storyRulePo);
+        spiderService.execute(request);
+        return ok(storyPipeline.getResultData());
     }
 }

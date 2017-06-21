@@ -14,12 +14,22 @@ public class SpiderProperties {
     /**
      * 线程
      */
-    private Integer thread;
+    private Integer thread=5;
 
     /**
      * 重试次数
      */
-    private Integer retryTime;
+    private Integer retryTime=3;
+
+    /**
+     * 休眠时间
+     */
+    private Long sleepTime=1000L;
+
+    /**
+     * 超时时间
+     */
+    private Long timeOut=20000L;
 
     public Integer getThread() {
         return thread;
@@ -35,5 +45,21 @@ public class SpiderProperties {
 
     public void setRetryTime(Integer retryTime) {
         this.retryTime = retryTime;
+    }
+
+    public Long getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(Long sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
+    public Long getTimeOut() {
+        return timeOut;
+    }
+
+    public void setTimeOut(Long timeOut) {
+        this.timeOut = timeOut;
     }
 }

@@ -43,9 +43,36 @@ public class Story {
     private String bookUrl;
 
     /**
+     * 小说图片
+     */
+    private String albumUrl;
+
+    /**
+     * 小说简介
+     */
+    private String description;
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
      * 章节
      */
     private List<Chapter> chapters;
+
+    public String getAlbumUrl() {
+        return albumUrl;
+    }
+
+    public void setAlbumUrl(String albumUrl) {
+        this.albumUrl = albumUrl;
+    }
 
     public String getResourceSiteUrl() {
         return resourceSiteUrl;

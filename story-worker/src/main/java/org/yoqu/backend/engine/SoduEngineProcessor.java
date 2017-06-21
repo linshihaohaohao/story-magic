@@ -1,17 +1,18 @@
 package org.yoqu.backend.engine;
 
 import org.apache.http.client.utils.DateUtils;
+import org.assertj.core.util.DateUtil;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
+import org.yoqu.backend.config.SpiderProperties;
 import org.yoqu.common.entity.Chapter;
 import org.yoqu.common.entity.Story;
+import org.yoqu.common.entity.StoryResource;
+import org.yoqu.common.entity.StoryResourceContent;
 import org.yoqu.common.entity.rule.StoryRulePo;
-import org.yoqu.common.enums.DragRuleTypeEnum;
 import org.yoqu.common.utils.ContentStringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
-import us.codecraft.webmagic.Site;
-import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
 import java.util.ArrayList;
@@ -21,10 +22,9 @@ import java.util.List;
  * Created by yoqu on 17-5-31.
  */
 @Component
-public class SoduEngineProcessor implements PageProcessor {
+@EnableConfigurationProperties(SpiderProperties.class)
+public class SoduEngineProcessor extends CommonProcessor {
 
-
-    private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(10000);
 
 
     @Override
@@ -34,39 +34,72 @@ public class SoduEngineProcessor implements PageProcessor {
         String type = storyRulePo.getType();
         if (type != null) {
             if (type.equals("search")) {
-                searchRule(page,storyRulePo);
+                searchRule(page, storyRulePo);
             } else if (type.equals("repository")) {
-                bookRepositoryRule(page, request,storyRulePo);
-            } else if (type.equals("chapters")) {
-                chapterRule(page, request);
+                bookRepositoryRule(page, request, storyRulePo);
+            } else if (type.equals("chapter")) {
+                chapterRule(page, request,storyRulePo);
             } else if (type.equals("content")) {
-                contentRule(page, request);
+                contentRule(page, request,storyRulePo);
             }
         } else {
-            page.putField("result", false);
+            page.putField("data", false);
         }
     }
 
-
-    private void contentRule(Page page, Request request) {
-        String contentRule = (String) request.getExtra("contentRule");
-        String ruleType = (String) request.getExtra("ruleType");
-        String content = "";
-        //判断操作类型
-        if (ruleType.equals(DragRuleTypeEnum.XPATH.getValue())) {
-            content = page.getHtml().xpath(contentRule).toString();
-        } else if (ruleType.equals(DragRuleTypeEnum.JQUERY.getValue())) {
-            content = page.getHtml().$(contentRule).toString();
-        } else if (ruleType.equals(DragRuleTypeEnum.CSS.getValue())) {
-            content = page.getHtml().css(contentRule).toString();
-        } else if (ruleType.equals(DragRuleTypeEnum.REGEX.getValue())) {
-            content = page.getHtml().regex(contentRule).toString();
-        } else {
-            content = page.getHtml().xpath(contentRule).toString();
-        }
-        //最后处理一下获取到的内容的html标签。
+    /**
+     *
+     * @param page
+     * @param request
+     * @param storyRulePo
+     */
+    private void contentRule(Page page, Request request,StoryRulePo storyRulePo) {
+        String content = dragItem(storyRulePo,page,storyRulePo.getStoryContentRulePo().getContentRule());//dragDataStr(storyRulePo.getRuleType(),page.getHtml(),storyRulePo.getStoryContentRulePo().getContentRule());
+        String chapterName = dragItem(storyRulePo,page,storyRulePo.getChapterName());//dragDataStr(storyRulePo.getRuleType(),page.getHtml(),storyRulePo.getChapterName());
         content = ContentStringUtils.filterDivTag(content);
-        page.putField("content", content);
+        Chapter chapter = new Chapter();
+        chapter.setName(chapterName);
+        chapter.setWordCount(Long.valueOf(content.length()));
+        chapter.setContent(content);
+        page.putField("data", chapter);
+    }
+
+    /**
+     * 抓取某个属性，如果规则为空则不抓
+     * @param storyRulePo
+     * @param page
+     * @param rule
+     * @return
+     */
+    public String dragItem(StoryRulePo storyRulePo,Page page,String rule){
+        if(rule ==null){
+            return null;
+        }else{
+            return dragDataStr(storyRulePo.getRuleType(),page.getHtml(),rule);
+        }
+    }
+
+    /**
+     * 抓取通用小说实体信息方法
+     * @param page
+     * @param request
+     * @param storyRulePo
+     * @return
+     */
+    private Story dragStoryCommonInfo(Page page, Request request,StoryRulePo storyRulePo){
+        String bookName = dragItem(storyRulePo,page,storyRulePo.getBookName());
+        String authorName = dragItem(storyRulePo,page,storyRulePo.getAuthorName());// dragDataStr(storyRulePo.getRuleType(),page.getHtml(),storyRulePo.getAuthorName()) ;//page.getHtml().xpath(storyRulePo.getAuthorName()).toString();
+        String imgUrl = dragItem(storyRulePo,page,storyRulePo.getAlbumUrl());//dragDataStr(storyRulePo.getRuleType(),page.getHtml(),storyRulePo.getAlbumUrl()); page.getHtml().xpath(storyRulePo.getAlbumUrl()).toString();
+        String bookDescription = dragItem(storyRulePo,page,storyRulePo.getBookDescription());//page.getHtml().xpath(storyRulePo.getBookDescription()).toString();
+        String lastUpdateDate = dragItem(storyRulePo,page,storyRulePo.getLastUpdateRule());//page.getHtml().xpath(storyRulePo.getLastUpdateRule()).toString();
+        Story story = new Story();
+        story.setName(bookName);
+        story.setAuthor(authorName);
+        story.setBookUrl(request.getUrl());
+        story.setAlbumUrl(imgUrl);
+        story.setLastUpdateDate(DateUtil.parse(lastUpdateDate));
+        story.setDescription(bookDescription);
+        return story;
     }
 
     /**
@@ -75,27 +108,28 @@ public class SoduEngineProcessor implements PageProcessor {
      * @param page
      * @param request
      */
-    private void chapterRule(Page page, Request request) {
-        List<Selectable> trLists = page.getHtml().xpath("/html/body/table[4]/tbody/tr/td[1]/table/tbody/tr").nodes();
-        List<Chapter> chapters = new ArrayList<>();
-        //循环每个tr
-        for (Selectable tr : trLists) {
-            List<Selectable> tdList = tr.xpath("//td").nodes();
-            //循环每个章节
-            for (Selectable item : tdList) {
+    private void chapterRule(Page page, Request request,StoryRulePo storyRulePo) {
+        if(request.getExtra("isChapterList").equals("true")){
+           List<Selectable> chapterListTable = dragData(storyRulePo.getRuleType(),page.getHtml(),storyRulePo.getListRule()).nodes();
+            Story story = dragStoryCommonInfo(page, request, storyRulePo);
+            List<Chapter> chapters = new ArrayList<>();
+            for (Selectable s:chapterListTable) {
+                String url = dragData(storyRulePo.getRuleType(),s,storyRulePo.getUrlRule()).links().toString();
+                String chapterName = dragDataStr(storyRulePo.getRuleType(),s,storyRulePo.getChapterName());
                 Chapter chapter = new Chapter();
-                String url = item.links().toString();
-                String name = item.xpath("//a/text()").toString();
-                //如果没有取到名字直接诶跳过即可
-                if (StringUtils.isEmpty(name)) {
-                    continue;
-                }
-                chapter.setName(name);
+                chapter.setName(chapterName);
                 chapter.setReadUrl(url);
                 chapters.add(chapter);
             }
+            story.setChapters(chapters);
+            page.putField("data",story);
+        }else{
+            request.putExtra("isChapterList","true");
+            String chapterUrl = dragData(storyRulePo.getRuleType(),page.getHtml(),storyRulePo.getStoryChapterRulePo()
+                    .getChapterListPageRule()).links().toString();
+            request.setUrl(chapterUrl);
+            page.addTargetRequest(request);
         }
-        page.putField("chapters", chapters);
     }
 
     /**
@@ -104,50 +138,63 @@ public class SoduEngineProcessor implements PageProcessor {
      * @param page
      * @param request
      */
-    private void bookRepositoryRule(Page page, Request request,StoryRulePo storyRulePo) {
-        List<Selectable> selectableList = page.getHtml().xpath(storyRulePo.getListRule()).nodes();//.xpath("/html/body/div[@class='main-html']").nodes();
-        List<Story> storyList = new ArrayList<>();
+    private void bookRepositoryRule(Page page, Request request, StoryRulePo storyRulePo) {
+        List<Selectable> selectableList = dragData(storyRulePo.getRuleType(),page.getHtml(),storyRulePo.getListRule()).nodes();
+        StoryResource storyResource = new StoryResource();
+        List<StoryResourceContent> resourceContents = new ArrayList<>();
+        boolean isInitflag = false;
         for (Selectable s : selectableList) {
-            String chapterName = s.xpath(storyRulePo.getChapterName()).toString();//s.xpath("//div/div[1]/a/text()").toString();
-            String bookUrl = s.xpath(storyRulePo.getUrlRule()).links().toString();//s.xpath("//div/div[1]").links().toString();
-            String resourceSite = s.xpath(storyRulePo.getResourceSiteRule()).toString();//s.xpath("div/div[2]/a/text()").toString();
-            String resourceSiteUrl = s.xpath(storyRulePo.getResourceSiteUrlRule()).toString();//s.xpath("div/div[2]/a").links().toString();
-            String lastDate = s.xpath(storyRulePo.getLastUpdateRule()).toString();//s.xpath("//div/div[3]/text()").toString();
-            Story story = new Story();
-            story.setBookUrl(bookUrl);
-            story.setResourceSite(resourceSite);
-            story.setResourceSiteUrl(resourceSiteUrl);
-            story.setNewChapter(chapterName);
-            story.setName(request.getExtra("bookName").toString());
-            story.setLastUpdateDate(DateUtils.parseDate(lastDate));
-            storyList.add(story);
+            String chapterName = dragDataStr(storyRulePo.getRuleType(),s,storyRulePo.getChapterName());
+            String bookUrl = dragData(storyRulePo.getRuleType(),s,storyRulePo.getUrlRule()).links().toString();
+            String resourceSite = dragDataStr(storyRulePo.getRuleType(),s,storyRulePo.getResourceSiteRule());
+            bookUrl=bookUrl.substring(bookUrl.lastIndexOf("http"));
+            String lastDate = s.xpath(storyRulePo.getLastUpdateRule()).toString();
+            //默认取第一个为默认源
+            if (!isInitflag) {
+                Chapter chapter = new Chapter();
+                chapter.setReadUrl(bookUrl);
+                chapter.setName(chapterName);
+                chapter.setStatus(1);
+                chapter.setUpdateDate(DateUtils.parseDate(lastDate));
+                storyResource.setLastChapter(chapter);
+                isInitflag = true;
+                storyResource.setUrl(bookUrl);
+                storyResource.setBookName(request.getExtra("bookName").toString());
+                storyResource.setHost(resourceSite);
+            } else {
+                StoryResourceContent storyResourceContent = new StoryResourceContent();
+                storyResourceContent.setHost(resourceSite);
+                storyResourceContent.setUrl(bookUrl);
+                storyResourceContent.setBookName(request.getExtra("bookName").toString());
+                storyResourceContent.setLastChapterName(chapterName);
+                resourceContents.add(storyResourceContent);
+            }
         }
-        page.putField("stories", storyList);
+        storyResource.setStoryResourceContents(resourceContents);
+        page.putField("data", storyResource);
     }
+
 
     /**
      * 搜索规则
      *
      * @param page
      */
-    private void searchRule(Page page,StoryRulePo storyRulePo) {
-        List<Selectable> stories = page.getHtml().xpath(storyRulePo.getListRule()).nodes();//"/html/body/div[@class='main-html']").nodes();
+    private void searchRule(Page page, StoryRulePo storyRulePo) {
+        List<Selectable> stories = dragData(storyRulePo.getRuleType(),page.getHtml(),storyRulePo.getListRule()).nodes();//page.getHtml().xpath(storyRulePo.getListRule()).nodes();//"/html/body/div[@class='main-html']").nodes();
         List<Story> storyList = new ArrayList<>();
         for (Selectable s : stories) {
             String url = s.links().toString();
-            String name = s.xpath(storyRulePo.getBookName()).toString();
-            String chapterName = s.xpath(storyRulePo.getChapterName()).toString();
+            String name = dragDataStr(storyRulePo.getRuleType(),s,storyRulePo.getBookName());//s.xpath(storyRulePo.getBookName()).toString();
+            String chapterName = dragDataStr(storyRulePo.getRuleType(),s,storyRulePo.getChapterName());//s.xpath(storyRulePo.getChapterName()).toString();
             Story story = new Story();
             story.setName(name);
             story.setNewChapter(chapterName);
             story.setBookUrl(url);
             storyList.add(story);
         }
-        page.putField("stories", storyList);
+
+        page.putField("data", storyList);
     }
 
-    @Override
-    public Site getSite() {
-        return site;
-    }
 }

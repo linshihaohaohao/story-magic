@@ -22,10 +22,14 @@ public class StoryPipeline implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
         System.out.println("get page: " + resultItems.getRequest().getUrl());
-        result.putAll(resultItems.getAll());
+        result.put("data",resultItems.get("data"));
     }
 
     public Map getResult(){
         return this.result;
+    }
+
+    public Object getResultData(){
+        return this.result.get("data");
     }
 }

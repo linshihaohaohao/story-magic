@@ -11,4 +11,5 @@ import org.yoqu.story.dao.mappers.BaseMapper;
  */
 
 public interface BaseService<T extends BaseRulePo, M extends BaseMapper> extends GenericService<T, String> {
+    String save(T po);
 }

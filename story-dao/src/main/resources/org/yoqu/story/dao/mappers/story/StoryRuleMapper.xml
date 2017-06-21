@@ -7,20 +7,24 @@
         <id property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
         <result property="bookName" column="book_name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="bookDescription" column="book_description" javaType="String" jdbcType="VARCHAR"/>
         <result property="authorName" column="author_name" javaType="String" jdbcType="VARCHAR"/>
         <result property="type" column="type" javaType="String" jdbcType="VARCHAR"/>
         <result property="listRule" column="list_rule" javaType="String" jdbcType="VARCHAR"/>
         <result property="chapterName" column="chapter_name" javaType="String" jdbcType="VARCHAR"/>
         <result property="url" column="url" javaType="String" jdbcType="VARCHAR"/>
-        <result property="ruleType" column="rule_type" javaType="String" jdbcType="VARCHAR"/>
+
         <result property="albumUrl" column="album_url" javaType="String" jdbcType="VARCHAR"/>
+        <result property="storySiteRuleId" column="story_site_rule_id" javaType="String" jdbcType="VARCHAR"/>
         <result property="urlRule" column="url_rule" javaType="String" jdbcType="VARCHAR"/>
         <result property="resourceSiteRule" column="resource_site_rule" javaType="String" jdbcType="VARCHAR"/>
         <result property="resourceSiteUrlRule" column="resource_site_url_rule" javaType="String" jdbcType="VARCHAR"/>
         <result property="lastUpdateRule" column="last_update_date_rule" javaType="String" jdbcType="VARCHAR"/>
 
-        <!-- 外键 -->
-        <result property="storySiteRuleId" column="story_site_rule_id" javaType="String" jdbcType="VARCHAR"/>
+        <!--<result property="ruleType" column="rule_type" javaType="String" jdbcType="VARCHAR"/>-->
+        <!-- ENUM -->
+        <result property="ruleType" column="rule_type" javaType="org.yoqu.common.enums.DragRuleTypeEnum" jdbcType="VARCHAR" typeHandler="org.yoqu.story.dao.handler.EnumTypeHandler"/>
+
         <!-- 通用 -->
         <result property="createBy" column="create_by" javaType="String" jdbcType="VARCHAR"/>
         <result property="updateBy" column="update_by" javaType="String" jdbcType="VARCHAR"/>
@@ -54,7 +58,7 @@
     </select>
 
     <select id="selectByStorySiteRuleId" parameterType="string" resultMap="StoryRuleResultMap">
-        select * from story_story_rule where story_site_rule_id=#{story_site_rule_id}
+        select * from story_story_rule where story_site_rule_id=#{story_site_rule_id} order by update_date
     </select>
 
     <select id="select" parameterType="org.hsweb.web.bean.common.QueryParam" resultMap="StoryRuleResultMap">

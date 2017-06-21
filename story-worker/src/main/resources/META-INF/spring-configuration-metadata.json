@@ -18,6 +18,18 @@
       "type": "java.lang.Integer",
       "sourceType": "org.yoqu.backend.config.SpiderProperties",
       "description": "spider retry spider times."
+    },
+    {
+      "name": "spider.config.sleepTime",
+      "type": "java.lang.Long",
+      "sourceType": "org.yoqu.backend.config.SpiderProperties",
+      "description": "sleep time"
+    },
+    {
+      "name": "spider.config.timeOut",
+      "type": "java.lang.Long",
+      "sourceType": "org.yoqu.backend.config.SpiderProperties",
+      "description": "request out time"
     }
   ],
   "hints": []

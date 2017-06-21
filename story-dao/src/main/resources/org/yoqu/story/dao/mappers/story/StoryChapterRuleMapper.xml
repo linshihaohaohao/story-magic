@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yoqu.story.dao.mappers.story.StoryChapterRuleMapper">
+    <resultMap id="StoryChapterRuleResultMap" type="org.yoqu.common.entity.rule.StoryChapterRulePo">
+        <id property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="storyRuleId" column="story_rule_id" javaType="String" jdbcType="VARCHAR"/>
+        <result property="chapterListPageRule" column="chapter_list_page_rule" javaType="String" jdbcType="VARCHAR"/>
+        <!-- 通用 -->
+        <result property="createBy" column="create_by" javaType="String" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" javaType="String" jdbcType="VARCHAR"/>
+        <result property="createDate" column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="updateDate" column="update_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="deleteFlag" column="delete_flag" javaType="Boolean" jdbcType="BOOLEAN"/>
+    </resultMap>
+
+    <!--用于动态生成sql所需的配置-->
+    <sql id="config">
+        <bind name="resultMapId" value="'StoryChapterRuleResultMap'"/>
+        <bind name="tableName" value="'story_story_chapter_rule'"/>
+    </sql>
+    <insert id="insert" parameterType="org.hsweb.web.bean.common.InsertParam">
+        <include refid="config"/>
+        <include refid="BasicMapper.buildInsertSql"/>
+    </insert>
+
+    <delete id="delete" parameterType="org.hsweb.web.bean.common.DeleteParam">
+        <include refid="config"/>
+        <include refid="BasicMapper.buildDeleteSql"/>
+    </delete>
+
+    <update id="update" parameterType="org.hsweb.web.bean.common.UpdateParam">
+        <include refid="config"/>
+        <include refid="BasicMapper.buildUpdateSql"/>
+    </update>
+
+    <select id="selectByPk" parameterType="string" resultMap="StoryChapterRuleResultMap">
+        select * from story_story_chapter_rule where id=#{id}
+    </select>
+
+    <select id="selectByStorySiteRuleId" parameterType="string" resultMap="StoryChapterRuleResultMap">
+        select * from story_story_chapter_rule where story_site_rule_id=#{story_site_rule_id} order by update_date
+    </select>
+
+    <select id="select" parameterType="org.hsweb.web.bean.common.QueryParam" resultMap="StoryChapterRuleResultMap">
+        <include refid="config"/>
+        <include refid="BasicMapper.buildSelectSql"/>
+    </select>
+
+
+    <select id="total" parameterType="org.hsweb.web.bean.common.QueryParam" resultType="int">
+        <include refid="config"/>
+        <include refid="BasicMapper.buildTotalSql"/>
+    </select>
+</mapper>

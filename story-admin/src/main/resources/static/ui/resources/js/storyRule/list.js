@@ -18,22 +18,22 @@
     }
 
     function edit(id){
-        openWindow(Request.BASH_PATH + "admin/product/save.html?id="+id, "编辑产品", "70%", "80%", function (e) {
+        openWindow(Request.BASH_PATH + "site/story/save.html?id="+id, "编辑站点", "70%", "80%", function (e) {
             grid.reload();
         });
     }
     function create() {
-        openWindow(Request.BASH_PATH + "admin/product/save.html", "新建产品",  "70%", "80%", function (e) {
+        openWindow(Request.BASH_PATH + "site/story/save.html", "新建站点",  "70%", "80%", function (e) {
             grid.reload();
         });
     }
 
     function remove(id) {
-        mini.confirm("确定删除此产品", "确定？",
+        mini.confirm("确定删除此站点", "确定？",
                 function (action) {
                     if (action == "ok") {
                         grid.loading("删除中...");
-                        Request['delete']("product/" + id, {}, function (e) {
+                        Request['delete']("api/site/story/" + id, {}, function (e) {
                             if (e.success) {
                                 grid.reload();
                                 showTips("删除成功!");
