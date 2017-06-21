@@ -16,6 +16,7 @@
             width: 100%;
             height: 90%;
         }
+
     </style>
 </head>
 <body>
@@ -45,7 +46,6 @@
         </tbody>
     </table>
 </div>
-
 <div id="story-form" style="margin: auto;width:80%;">
     <br/>
     <h2 align="center">编辑网站规则</h2>
@@ -100,10 +100,10 @@
             <div field="albumUrl" width="60" align="center" headerAlign="center">封面
                 <input property="editor" class="mini-textbox"/>
             </div>
-                <div field="" renderer="rendererForOther"  width="60" align="center" headerAlign="center" >内容
+                <div field="" renderer="rendererForContent"  width="60" align="center" headerAlign="center" >内容
                     <#--<input property="editor" onbuttonclick="onbuttonedit" class="mini-buttonedit" readonly/>-->
                 </div>
-                <div field=""  renderer=""  width="60" align="center" headerAlign="center">章节
+                <div field=""  renderer="rendererForChapter"  width="60" align="center" headerAlign="center">章节
 
                 </div>
             <div name="action" renderer="renderAction" align="center" headerAlign="center" width="50">操作
@@ -111,17 +111,30 @@
         </div>
     </div>
 </div>
-<#--<div id="roleGrid" class="mini-datagrid" style="width:80%;height:200px;margin: auto"-->
-     <#--url="<@global.api "role?paging=false"/>" ajaxOptions="{type:'GET'}" showpager="false"-->
-     <#--allowCellSelect="true" multiSelect="true" >-->
-    <#--<div property="columns">-->
-        <#--<div type="checkcolumn"></div>-->
-        <#--<div name="id" field="id" width="60">ID</div>-->
-        <#--<div name="name" field="name" width="120">角色名称</div>-->
-        <#--<div name="remark" field="remark" width="120">备注</div>-->
-    <#--</div>-->
 </div>
-<#--
+
+<div id="content-form" style="margin-top:20px"   class="mini-window" title="内容规则" style="650px;height: 350px;"
+     showModal="true" allowResize="true" allowDrag="true">
+    <table data-sort="sortDisabled" style="width:80%;margin:auto;">
+        <tbody>
+        <tr>
+            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="20%">名称</td>
+            <td valign="top" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="80%">
+                <input style="width:100%" required="true" name="name" id="name" class="mini-textbox"></td>
+        </tr>
+        <tr>
+            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="20%">规则</td>
+            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="80%" align="left">
+                <input style="width:100%" name="contentRule" required="true" id="contentRule" class="mini-textbox"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div style="width: 100%;height: 20px;text-align: center">
+        <a class="mini-button" iconCls="icon-save" plain="true" onclick="contentSave()">保存</a>
+        <a class="mini-button" iconCls="icon-undo" plain="true" onclick="miniClose()">返回</a>
+    </div>
+</div>
+<#-- 网站规则
 position:fixed;z-index: 99999;bottom: 0px;-->
 <div style="width: 100%;height: 20px;text-align: center">
     <a class="mini-button" iconCls="icon-save" plain="true" onclick="save()">保存</a>

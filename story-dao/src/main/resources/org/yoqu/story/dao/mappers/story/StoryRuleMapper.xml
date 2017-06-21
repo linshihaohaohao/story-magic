@@ -34,6 +34,9 @@
         <result property="deleteFlag" column="delete_flag" javaType="Boolean" jdbcType="BOOLEAN"/>
 
         <!-- association 必须放在 result后面  -->
+        <association property="storyChapterRulePo" column="id" select="org.yoqu.story.dao.mappers.story.StoryChapterRuleMapper.selectByStoryRuleId" javaType="org.yoqu.common.entity.rule.StoryChapterRulePo">
+        </association>
+
         <association property="storyContentRulePo" column="id" select="org.yoqu.story.dao.mappers.story.StoryContentRuleMapper.selectByStoryRuleId" javaType="org.yoqu.common.entity.rule.StoryContentRulePo">
         </association>
 

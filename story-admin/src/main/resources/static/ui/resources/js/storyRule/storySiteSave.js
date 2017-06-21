@@ -9,6 +9,7 @@ uParse('#data-form', {
 var pageData={};
 var tableDate=[];
 var grid = mini.get("m_option_table");
+var contentWindow = mini.get("content-form");
 loadData();
 function loadData() {
     if (storySiteId != "") {
@@ -32,79 +33,56 @@ function renderAction(e){
     // console.log(e);
     var row = e.record;
     var html = "";
-    if(row.type == "content"){
-        html += createIdActionButton("editId","编辑内容", "edit('" + row._id + "')", "icon-edit");
-    }else if(row.type == "chapter"){
-        html += createIdActionButton("editId","编辑章节", "edit('" + row._id + "')", "icon-edit");
-    }else {
-    }
+    // if(row.type == "content"){
+    //     html += createIdActionButton("editId","编辑内容", "edit('" + row._id + "')", "icon-edit");
+    // }else if(row.type == "chapter"){
+    //     html += createIdActionButton("editId","编辑章节", "edit('" + row._id + "')", "icon-edit");
+    // }else {
+    // }
    html += createIdActionButton("removeId","删除", "removeNode('" + row._id + "')", "icon-remove");
     return html;
 }
 
-// grid.on("drawcell", function (e) {
-//
-//     console.log(e);
-//     var rows = grid.getData();
-//     var record = e.record,
-//         column = e.column,
-//         field = e.field,
-//         value = e.value;
-//     // console.log(record);
-//     // console.log(column);
-//     // console.log(column);
-//     if(column.field == "storyContentRulePo" || column.field == "storyChapterRulePo"){
-//         if(record.type == "content"){
-//             console.log("content");
-//             column.readOnly = false;
-//         }else if(record.type == "chapter"){
-//             console.log("chapter");
-//             column.readOnly = false;
-//         }else {
-//             column.readOnly = true;
-//         }
-//     }
-//
-// });
-function rendererForOther(e) {
-    // console.log(e);
+
+function rendererForContent(e) {
     var row = e.record;
-    var node = e.node,
-        column = e.column;
-    // console.log(node);
-    // console.log(column);
-    console.log(row);
+    if(row.type == "content") {
+        return returnEditInfo(e,"content");
+    }
+}
+
+function rendererForChapter(e) {
+    var row = e.record;
+    if(row.type == "chapter") {
+        return returnEditInfo(e,"chapter");
+    }
+}
+
+function returnEditInfo(e,type) {
+    var row = e.record;
     var contentName = "";
     if(null != row.storyContentRulePo){
         contentName = row.storyContentRulePo.name;
     }
-
-
-    if(row.type == "content"){
-        return '<span  class="action-span" title="hhh" onclick="">'
-            + '<span class="action-icon icon-edit" >'+ contentName +'</span>'
+    var chapterName = "";
+    if(null != row.storyChapterRulePo){
+        chapterName = row.storyChapterRulePo.name;
+    }
+    if(type == "content") {
+        return '<span  class="action-span"  onclick="openContentWindow(' + row._id + ')">'
+            +'<a id="contentName_'+ row._id +'" style="font-size: 10px">'+ contentName +'</a>'
+            + '<span class="action-icon icon-edit" ></span>'
             +'</span>';
-    }else if(row.type == "chapter"){
-        return '<span  class="action-span" title="hhh" onclick="">'
-            + '<span class="action-icon icon-edit" > </span>'
+    }else if(type == "chapter"){
+        return '<span  class="action-span"  onclick="editChapter(' + row._id + ')">'
+            +'<a id="chapterName_'+ row._id +'" style="font-size: 10px">'+ chapterName +'</a>'
+            + '<span class="action-icon icon-edit" ></span>'
             +'</span>';
-    }else {
-
     }
 
-
 }
 
 
-function edit(id){
-    // storyContentRulePo
-    var m_option = grid.getData();
-    var story = m_option[id-1];
-    openWindow("site/story/content/save.html?id="+story.id, "设置内容规则", "50%", "60%", function (data) {
-        story.storyContentRulePo = data;
-        console.log(data);
-    });
-}
 
 function removeNode(id){
     var nodes = grid.findNodes(function(node){
@@ -118,8 +96,6 @@ function removeNode(id){
     grid.removeNodes(nodes);
     showTips("删除成功");
 }
-
-
 function removeStoryRule(id) {
     var box = mini.loading("提交中...", "");
     Request.delete("api/site/storyRule/"+id, null, function (e) {
@@ -131,7 +107,6 @@ function removeStoryRule(id) {
         }
     });
 }
-
 function save() {
     var form = new mini.Form("#data-form");
     form.validate();
@@ -154,7 +129,6 @@ function save() {
     data.storyRulePos = pushRoles;
     var func = Request.post;
     var box = mini.loading("提交中...", "");
-
 
     func("api/site/story/save", data, function (e) {
         mini.hideMessageBox(box);
@@ -179,32 +153,68 @@ function getSourceData(sourceData,newData) {
                 }
             }
         }
-        // if(undefined != sourceData._id){
-        //     delete  sourceData._id;
-        // }
         returnData = sourceData;
     }else {
         returnData = newData
     }
     return returnData;
 }
-
 var deepCopy= function(source) {
     var result={};
     for (var key in source) {
-
         result[key] = typeof source[key]==='String'? deepCopy(source[key]): source[key];
     }
     return result;
 }
-
-
 function createIdActionButton(id,text, action, icon) {
     return '<span id="'+ id +'" class="action-span" title="' + text + '" onclick="' + action + '">' +
         '<span class="action-icon ' + icon + '"></span>' + "" //text
         + '</span>';
 }
 
-function createActionInput() {
-    return '<input property="editor" onbuttonclick="onbuttonedit" class="mini-buttonedit"/>';
+
+//mini窗口操作
+//content
+
+function openContentWindow(id) {
+    contentWindow.contentClowId = id;
+    var form = new mini.Form("#content-form");
+    var m_option = grid.getData();
+    var story = m_option[id-1];
+    var content = story.storyContentRulePo;
+    form.setData(content);
+    contentWindow.show();
+}
+
+function contentSave() {
+    var form = new mini.Form("#content-form");
+    form.validate();
+    if (!form.isValid())return;
+    editContent(contentWindow.contentClowId,form.getData());
+}
+
+function editContent(id,data){
+    var m_option = grid.getData();
+    var story = m_option[id-1];
+    var content = story.storyContentRulePo;
+            var retunData = null;
+            if(undefined != content.id){
+                retunData = getSourceData(content,data);
+            }else {
+                retunData =  content;
+            }
+            story.storyContentRulePo = retunData;
+            $("#contentName_"+id).html(data.name);
+
+            contentWindow.hide();
+    delete contentWindow.contentClowId;
+}
+
+function editChapter(id){
+
+}
+
+function miniClose() {
+    delete  contentWindow.contentClowId;
+    contentWindow.hide();
 }

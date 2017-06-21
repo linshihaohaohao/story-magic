@@ -40,8 +40,8 @@
         select * from story_story_chapter_rule where id=#{id}
     </select>
 
-    <select id="selectByStorySiteRuleId" parameterType="string" resultMap="StoryChapterRuleResultMap">
-        select * from story_story_chapter_rule where story_site_rule_id=#{story_site_rule_id} order by update_date
+    <select id="selectByStoryRuleId" parameterType="string" resultMap="StoryChapterRuleResultMap">
+        select * from story_story_chapter_rule where story_rule_id=#{story_rule_id} order by update_date
     </select>
 
     <select id="select" parameterType="org.hsweb.web.bean.common.QueryParam" resultMap="StoryChapterRuleResultMap">

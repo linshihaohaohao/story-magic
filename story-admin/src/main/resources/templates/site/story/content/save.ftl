@@ -39,24 +39,13 @@
         </tr>
         </tbody>
     </table>
+    <div style="width: 100%;height: 20px;text-align: center">
+        <a class="mini-button" iconCls="icon-save" plain="true" onclick="closeContentWindow()">保存</a>
+        <a class="mini-button" iconCls="icon-undo" plain="true" onclick="closeWindow('back')">返回</a>
+    </div>
 </div>
 
-<#--<div id="roleGrid" class="mini-datagrid" style="width:80%;height:200px;margin: auto"-->
-     <#--url="<@global.api "role?paging=false"/>" ajaxOptions="{type:'GET'}" showpager="false"-->
-     <#--allowCellSelect="true" multiSelect="true" >-->
-    <#--<div property="columns">-->
-        <#--<div type="checkcolumn"></div>-->
-        <#--<div name="id" field="id" width="60">ID</div>-->
-        <#--<div name="name" field="name" width="120">角色名称</div>-->
-        <#--<div name="remark" field="remark" width="120">备注</div>-->
-    <#--</div>-->
-</div>
-<#--
-position:fixed;z-index: 99999;bottom: 0px;-->
-<div style="width: 100%;height: 20px;text-align: center">
-    <a class="mini-button" iconCls="icon-save" plain="true" onclick="closeContentWindow()">保存</a>
-    <a class="mini-button" iconCls="icon-undo" plain="true" onclick="closeWindow('back')">返回</a>
-</div>
+
 </body>
 </html>
 <@global.importRequest/>
@@ -67,6 +56,7 @@ position:fixed;z-index: 99999;bottom: 0px;-->
         if (!form.isValid())return;
         var story  = form.getData();
         closeWindow(story);
+
     }
     var contentId = "${param!''}";
 

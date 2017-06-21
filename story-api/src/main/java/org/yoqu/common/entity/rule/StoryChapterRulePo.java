@@ -47,9 +47,7 @@ public class StoryChapterRulePo extends BaseRulePo {
         this.storyRuleId = storyRuleId;
     }
     public interface Property extends GenericPo.Property{
-
         String name = "name";
-
         String storyRuleId = "storyRuleId";
         String chapterRuleListRule = "chapterRuleListRule";
     }
