@@ -26,7 +26,6 @@
 
         <!--<collection property="storyContentRulePo" column="story_content_rule" jdbcType="VARCHAR" ofType="org.yoqu.common.entity.rule.StoryRulePo"-->
                     <!--select="org.yoqu.story.dao.mappers.story.StoryContentRuleMapper.selectByStoryRuleId"></collection>-->
-
         <!-- 通用 -->
         <result property="createBy" column="create_by" javaType="String" jdbcType="VARCHAR"/>
         <result property="updateBy" column="update_by" javaType="String" jdbcType="VARCHAR"/>
@@ -35,17 +34,9 @@
         <result property="deleteFlag" column="delete_flag" javaType="Boolean" jdbcType="BOOLEAN"/>
 
         <!-- association 必须放在 result后面  -->
-        <association property="storyContentRulePo" javaType="org.yoqu.common.entity.rule.StoryContentRulePo"  >
-            <id property="id" column="id" javaType="String" jdbcType="VARCHAR"/>
-            <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
-            <result property="storyRuleId" column="story_rule_id" javaType="String" jdbcType="VARCHAR"/>
-            <result property="contentRule" column="content_rule" javaType="String" jdbcType="VARCHAR"/>
-            <result property="createBy" column="create_by" javaType="String" jdbcType="VARCHAR"/>
-            <result property="updateBy" column="update_by" javaType="String" jdbcType="VARCHAR"/>
-            <result property="createDate" column="create_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
-            <result property="updateDate" column="update_date" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
-            <result property="deleteFlag" column="delete_flag" javaType="Boolean" jdbcType="BOOLEAN"/>
+        <association property="storyContentRulePo" column="id" select="org.yoqu.story.dao.mappers.story.StoryContentRuleMapper.selectByStoryRuleId" javaType="org.yoqu.common.entity.rule.StoryContentRulePo">
         </association>
+
     </resultMap>
 
     <!--用于动态生成sql所需的配置-->
