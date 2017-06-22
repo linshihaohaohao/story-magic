@@ -134,6 +134,30 @@
         <a class="mini-button" iconCls="icon-undo" plain="true" onclick="miniClose()">返回</a>
     </div>
 </div>
+
+
+<div id="chapter-form" style="margin-top:20px"   class="mini-window" title="章节规则" style="650px;height: 350px;"
+     showModal="true" allowResize="true" allowDrag="true">
+    <table data-sort="sortDisabled" style="width:80%;margin:auto;">
+        <tbody>
+        <tr>
+            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="20%">名称</td>
+            <td valign="top" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="80%">
+                <input style="width:100%" required="true" name="name" id="name" class="mini-textbox"></td>
+        </tr>
+        <tr>
+            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" align="right" width="20%">章节列表规则</td>
+            <td valign="middle" style="word-break: break-all; border-color: rgb(221, 221, 221);" width="80%" align="left">
+                <input style="width:100%" name="chapterListPageRule" required="true" id="chapterListPageRule" class="mini-textbox"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div style="width: 100%;height: 20px;text-align: center">
+        <a class="mini-button" iconCls="icon-save" plain="true" onclick="chapterSave()">保存</a>
+        <a class="mini-button" iconCls="icon-undo" plain="true" onclick="miniClose()">返回</a>
+    </div>
+</div>
+
 <#-- 网站规则
 position:fixed;z-index: 99999;bottom: 0px;-->
 <div style="width: 100%;height: 20px;text-align: center">

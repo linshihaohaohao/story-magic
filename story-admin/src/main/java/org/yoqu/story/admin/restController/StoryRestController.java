@@ -8,8 +8,11 @@ import org.hsweb.web.core.message.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
+import org.yoqu.common.entity.rule.StoryContentRulePo;
 import org.yoqu.common.entity.rule.StoryRulePo;
 import org.yoqu.common.entity.rule.StorySiteRulePo;
+import org.yoqu.story.dao.service.StoryChapterRuleService;
+import org.yoqu.story.dao.service.StoryContentRuleService;
 import org.yoqu.story.dao.service.StoryRuleService;
 import org.yoqu.story.dao.service.StorySiteRuleService;
 
@@ -33,6 +36,12 @@ public class StoryRestController extends GenericController<StorySiteRulePo, Stri
     @Autowired
     StoryRuleService storyRuleService;
 
+    @Autowired
+    StoryContentRuleService storyContentRuleService;
+
+    @Autowired
+    StoryChapterRuleService storyChapterRuleService;
+
     @Override
     protected StorySiteRuleService getService() {
         return this.storySiteRuleService;
@@ -53,6 +62,14 @@ public class StoryRestController extends GenericController<StorySiteRulePo, Stri
                     storyRulePo.setStorySiteRuleId(poId);
                 }
                 String ruleId = storyRuleService.save(storyRulePo);
+                if(null != storyRulePo.getStoryChapterRulePo()){
+                    storyRulePo.getStoryChapterRulePo().setStoryRuleId(ruleId);
+                    storyChapterRuleService.save(storyRulePo.getStoryChapterRulePo());
+                }
+                if(null != storyRulePo.getStoryContentRulePo()){
+                    storyRulePo.getStoryContentRulePo().setStoryRuleId(ruleId);
+                    storyContentRuleService.save(storyRulePo.getStoryContentRulePo());
+                }
                 saveRuleIDs.add(ruleId);
             }
         }

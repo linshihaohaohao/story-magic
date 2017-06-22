@@ -10,6 +10,7 @@ var pageData={};
 var tableDate=[];
 var grid = mini.get("m_option_table");
 var contentWindow = mini.get("content-form");
+var chapterWindow = new mini.get("chapter-form");
 loadData();
 function loadData() {
     if (storySiteId != "") {
@@ -74,7 +75,7 @@ function returnEditInfo(e,type) {
             + '<span class="action-icon icon-edit" ></span>'
             +'</span>';
     }else if(type == "chapter"){
-        return '<span  class="action-span"  onclick="editChapter(' + row._id + ')">'
+        return '<span  class="action-span"  onclick="openChapterWindow(' + row._id + ')">'
             +'<a id="chapterName_'+ row._id +'" style="font-size: 10px">'+ chapterName +'</a>'
             + '<span class="action-icon icon-edit" ></span>'
             +'</span>';
@@ -119,25 +120,39 @@ function save() {
 
         //如果使用原有miniui的对象会自带_id等表格行列属性，如不删除会导致上传至controller层时替换id的至导致server无法获取id时重复保存。
     var pushRoles = [];
+    var errorFlag = false;
+    console.log(m_option);
     $(m_option).each(function (i, e) {
+            if( (null == e.storyChapterRulePo && e.type == "chapter" )
+                || (null == e.storyContentRulePo && e.type == "content")){
+                mini.alert(e.name+" 的类型为 "+e.type +", 请点击按钮添加相应的内容!");
+                errorFlag = true;
+            }else {
+                errorFlag = false;
+            }
+
         var data = deepCopy(e);
         delete  data._id;
         pushRoles.push(data);
     });
 
+    if(errorFlag){
+        return;
+    }
+
     var data = getSourceData(pageData,form.getData());
     data.storyRulePos = pushRoles;
     var func = Request.post;
     var box = mini.loading("提交中...", "");
-
     func("api/site/story/save", data, function (e) {
         mini.hideMessageBox(box);
         pageData = data;
         if (e.success) {
-            showTips("保存成功");
+            showTips("保存成功！页面即将刷新");
             setTimeout(function () {
-                if(storySiteId == "")closeWindow('back');
-            },800);
+                window.location.reload();
+            },1200);
+
         } else {
             mini.alert(e.message);
         }
@@ -181,8 +196,21 @@ function openContentWindow(id) {
     var form = new mini.Form("#content-form");
     var m_option = grid.getData();
     var story = m_option[id-1];
-    var content = story.storyContentRulePo;
-    form.setData(content);
+    if(null != story.storyContentRulePo){
+        form.setData(story.storyContentRulePo);
+    }
+
+    $("#content-form").css({
+        "border-width": "0px",
+    "width": "684px",
+        "margin-top": "20px",
+            "padding": "0px",
+        "z-index": "1006",
+            "position": "absolute",
+        "left": "135px",
+            "top": "174px",
+        "height": "172px",
+    })
     contentWindow.show();
 }
 
@@ -198,23 +226,68 @@ function editContent(id,data){
     var story = m_option[id-1];
     var content = story.storyContentRulePo;
             var retunData = null;
-            if(undefined != content.id){
+            if(null != content){
                 retunData = getSourceData(content,data);
             }else {
-                retunData =  content;
+                retunData =  data;
             }
             story.storyContentRulePo = retunData;
-            $("#contentName_"+id).html(data.name);
-
+            $("#contentName_"+id).html(retunData.name);
             contentWindow.hide();
     delete contentWindow.contentClowId;
 }
 
-function editChapter(id){
+//chapter
 
+function openChapterWindow(id) {
+    chapterWindow.chapterClowId = id;
+    var form = new mini.Form("#chapter-form");
+    var m_option = grid.getData();
+    var story = m_option[id-1];
+    if(null != story.storyChapterRulePo){
+        form.setData(story.storyChapterRulePo);
+    }
+    $("#chapter-form").css({
+        "border-width": "0px",
+        "width": "684px",
+        "margin-top": "20px",
+        "padding": "0px",
+        "z-index": "1006",
+        "position": "absolute",
+        "left": "135px",
+        "top": "174px",
+        "height": "172px",
+    })
+    chapterWindow.show();
+}
+
+function chapterSave() {
+    var form = new mini.Form("#chapter-form");
+    form.validate();
+    if (!form.isValid())return;
+    editChapter(chapterWindow.chapterClowId,form.getData());
+}
+
+function editChapter(id,data){
+    var m_option = grid.getData();
+    var story = m_option[id-1];
+    var chapter = story.storyChapterRulePo;
+    var retunData = null;
+    if(null != chapter){
+        retunData = getSourceData(chapter,data);
+    }else {
+        retunData =  data;
+    }
+    story.storyChapterRulePo = retunData;
+    $("#chapterName_"+id).html(retunData.name);
+
+    chapterWindow.hide();
+    delete chapterWindow.chapterClowId;
 }
 
 function miniClose() {
     delete  contentWindow.contentClowId;
     contentWindow.hide();
+    delete  chapterWindow.chapterClowId;
+    chapterWindow.hide();
 }
