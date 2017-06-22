@@ -71,13 +71,13 @@ function returnEditInfo(e,type) {
     }
     if(type == "content") {
         return '<span  class="action-span"  onclick="openContentWindow(' + row._id + ')">'
-            +'<a id="contentName_'+ row._id +'" style="font-size: 10px">'+ contentName +'</a>'
             + '<span class="action-icon icon-edit" ></span>'
+            +'<a id="contentName_'+ row._id +'" style="font-size: 10px">'+ contentName +'</a>'
             +'</span>';
     }else if(type == "chapter"){
         return '<span  class="action-span"  onclick="openChapterWindow(' + row._id + ')">'
-            +'<a id="chapterName_'+ row._id +'" style="font-size: 10px">'+ chapterName +'</a>'
             + '<span class="action-icon icon-edit" ></span>'
+            +'<a id="chapterName_'+ row._id +'" style="font-size: 10px">'+ chapterName +'</a>'
             +'</span>';
     }
 

@@ -30,11 +30,11 @@
             </td>
             <td style="white-space:nowrap;">
             	<label>网站: </label>
-                 <input name="sex$LIKE" style="width: 100px" onenter="search()" class="mini-textbox"/>
+                 <input name="name$LIKE" style="width: 100px" onenter="search()" class="mini-textbox"/>
             </td>
             <td style="white-space:nowrap;">
                 <label>类型: </label>
-                <input name="sex$LIKE" style="width: 100px" onenter="search()" class="mini-textbox"/>
+                <input name="type$LIKE" style="width: 100px" onenter="search()" class="mini-textbox"/>
                 <a class="mini-button" iconCls="icon-search" plain="true" onclick="search()">查询</a>
             </td>
 
